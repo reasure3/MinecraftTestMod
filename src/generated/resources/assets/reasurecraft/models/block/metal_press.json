@@ -1,0 +1,9 @@
+{
+  "parent": "reasurecraft:block/basic_machine",
+  "textures": {
+    "front": "reasurecraft:block/metal_press_front_on",
+    "top": "reasurecraft:block/basic_machine_top",
+    "bottom": "reasurecraft:block/basic_machine_bottom",
+    "side": "reasurecraft:block/basic_machine_side"
+  }
+}

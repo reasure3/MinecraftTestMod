@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "item": "minecraft:leather_horse_armor"
+    }
+  ],
+  "result": {
+    "item": "minecraft:diamond_horse_armor"
+  }
+}

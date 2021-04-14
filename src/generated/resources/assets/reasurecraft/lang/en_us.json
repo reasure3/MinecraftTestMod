@@ -1,0 +1,19 @@
+{
+  "block.reasurecraft.metal_press": "Metal Press",
+  "block.reasurecraft.silver_block": "Block of Silver",
+  "block.reasurecraft.silver_ore": "Silver Ore",
+  "item.reasurecraft.silver_axe": "Silver Axe",
+  "item.reasurecraft.silver_boots": "Silver Boots",
+  "item.reasurecraft.silver_chestplate": "Silver Chestplate",
+  "item.reasurecraft.silver_dust": "Silver Dust",
+  "item.reasurecraft.silver_helmet": "Silver Helmet",
+  "item.reasurecraft.silver_hoe": "Silver Hoe",
+  "item.reasurecraft.silver_horse_armor": "Silver Horse Armor",
+  "item.reasurecraft.silver_ingot": "Silver Ingot",
+  "item.reasurecraft.silver_leggings": "Silver Leggings",
+  "item.reasurecraft.silver_nugget": "Silver Nugget",
+  "item.reasurecraft.silver_pickaxe": "Silver Pickaxe",
+  "item.reasurecraft.silver_shovel": "Silver Shovel",
+  "item.reasurecraft.silver_sword": "Silver Sword",
+  "itemGroup.reasurecraft": "Reasure Craft"
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "forge:dusts/silver"
+  },
+  "result": "reasurecraft:silver_ingot",
+  "experience": 1.5,
+  "cookingtime": 200
+}

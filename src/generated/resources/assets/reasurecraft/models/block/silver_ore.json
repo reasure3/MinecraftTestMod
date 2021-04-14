@@ -1,0 +1,8 @@
+{
+  "parent": "reasurecraft:block/ore",
+  "textures": {
+    "stone": "minecraft:block/stone",
+    "ore": "reasurecraft:block/silver_ore",
+    "particle": "reasurecraft:block/silver_ore"
+  }
+}
