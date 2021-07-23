@@ -48,6 +48,6 @@ public class ReasureCraft {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         ModBlocks.setRenderType();
-        ScreenManager.register(ModContainerTypes.DISPLAY_CASE.get(), DisplayCaseScreen::new);
+        ModContainerTypes.registerScreens(event);
     }
 }

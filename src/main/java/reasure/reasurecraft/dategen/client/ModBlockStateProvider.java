@@ -41,6 +41,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         oreBlock(ModBlocks.SILVER_ORE.get(), "stone");
 
         BasicMachine(ModBlocks.METAL_PRESS.get());
+
+        ExistingModel(ModBlocks.DISPLAY_CASE.get());
     }
 
     private void oreBlock(ModOreBlock block, String stone) {
@@ -64,5 +66,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .texture("side", modLoc("block/basic_machine_side"));
 
         getVariantBuilder(block).partialState().setModels(new ConfiguredModel(modelBuilder));
+    }
+
+    private void ExistingModel(Block block) {
+        getVariantBuilder(block).partialState().setModels(new ConfiguredModel(models().getExistingFile(block.getRegistryName())));
     }
 }

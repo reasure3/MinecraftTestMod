@@ -9,6 +9,8 @@ import reasure.reasurecraft.init.ModBlocks;
 import reasure.reasurecraft.init.ModItems;
 import reasure.reasurecraft.item.itemgroup.ModItemGroup;
 
+import java.util.Objects;
+
 public class ModLanguageProvider extends LanguageProvider {
     private final String locale;
 
@@ -23,11 +25,13 @@ public class ModLanguageProvider extends LanguageProvider {
                 helper.add(ModBlocks.SILVER_ORE.get(), "Silver Ore");
                 helper.add(ModBlocks.SILVER_BLOCK.get(), "Block of Silver");
                 helper.add(ModBlocks.METAL_PRESS.get(), "Metal Press");
+                helper.add(ModBlocks.DISPLAY_CASE.get(), "Display Case");
                 break;
             case "ko_kr":
                 helper.add(ModBlocks.SILVER_ORE.get(), "은광석");
                 helper.add(ModBlocks.SILVER_BLOCK.get(), "은 블록");
                 helper.add(ModBlocks.METAL_PRESS.get(), "금속 유압기");
+                helper.add(ModBlocks.DISPLAY_CASE.get(), "전시장");
                 break;
         }
     }
@@ -76,6 +80,16 @@ public class ModLanguageProvider extends LanguageProvider {
                 helper.add(ModItemGroup.reasurecraft, "래져 크래프트");
         }
     }
+    
+    private void containers(PrefixHelper helper, String locale) {
+        switch (locale) {
+            case "en_us":
+                helper.addContainer(ModBlocks.METAL_PRESS.get(), "Metal Press");
+                break;
+            case "ko_kr":
+                helper.addContainer(ModBlocks.METAL_PRESS.get(), "금속 유압기");
+        }
+    }
 
     @Override
     protected void addTranslations() {
@@ -83,6 +97,7 @@ public class ModLanguageProvider extends LanguageProvider {
         blocks(helper, locale);
         items(helper, locale);
         itemGroups(helper, locale);
+        containers(helper, locale);
     }
 
     public String getLocale() {
@@ -115,6 +130,11 @@ public class ModLanguageProvider extends LanguageProvider {
 
         public void add(ModItemGroup key, String name) {
             provider.add("itemGroup." + key.getLabel(), name);
+        }
+
+        public void addContainer(Block key, String name) {
+            setPrefix("container.reasurecraft");
+            provider.add(prefix + Objects.requireNonNull(key.getRegistryName()).getPath(), name);
         }
     }
 }

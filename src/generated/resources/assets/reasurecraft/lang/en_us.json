@@ -1,7 +1,9 @@
 {
+  "block.reasurecraft.display_case": "Display Case",
   "block.reasurecraft.metal_press": "Metal Press",
   "block.reasurecraft.silver_block": "Block of Silver",
   "block.reasurecraft.silver_ore": "Silver Ore",
+  "container.reasurecraft.metal_press": "Metal Press",
   "item.reasurecraft.silver_axe": "Silver Axe",
   "item.reasurecraft.silver_boots": "Silver Boots",
   "item.reasurecraft.silver_chestplate": "Silver Chestplate",

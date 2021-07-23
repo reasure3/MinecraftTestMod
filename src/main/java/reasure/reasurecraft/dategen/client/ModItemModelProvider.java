@@ -20,6 +20,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         withExistingParent("metal_press", modLoc("block/metal_press"));
         withExistingParent("quarry", modLoc("block/quarry"));
+        withExistingParent("display_case", modLoc("block/display_case"));
     }
 
     private void builder(ModelFile model, String name) {

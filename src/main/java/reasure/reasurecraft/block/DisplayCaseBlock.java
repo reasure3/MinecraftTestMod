@@ -7,11 +7,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import reasure.reasurecraft.init.ModTileEntityTypes;
 import reasure.reasurecraft.block.tileentity.DisplayCaseTileEntity;
@@ -20,7 +23,7 @@ import javax.annotation.Nullable;
 
 public class DisplayCaseBlock extends Block {
     public DisplayCaseBlock(AbstractBlock.Properties properties) {
-        super(properties);
+        super(properties.noOcclusion());
     }
 
     @Override
@@ -44,5 +47,11 @@ public class DisplayCaseBlock extends Block {
             }
         }
         return ActionResultType.SUCCESS;
+    }
+
+    @SuppressWarnings("deprecation")
+    @OnlyIn(Dist.CLIENT)
+    public boolean skipRendering(BlockState state, BlockState other, Direction direction) {
+        return (other.is(this) && direction != Direction.DOWN) || super.skipRendering(state, other, direction);
     }
 }

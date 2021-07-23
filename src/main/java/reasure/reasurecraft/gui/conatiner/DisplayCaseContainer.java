@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class DisplayCaseContainer extends Container {
     public final DisplayCaseTileEntity te;
-    private final IWorldPosCallable canInteractWithCallable;  // github Test
+    private final IWorldPosCallable canInteractWithCallable;
 
     public DisplayCaseContainer(final int windowId, final PlayerInventory playerInv, final DisplayCaseTileEntity te) {
         super(ModContainerTypes.DISPLAY_CASE.get(), windowId);

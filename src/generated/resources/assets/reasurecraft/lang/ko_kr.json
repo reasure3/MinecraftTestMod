@@ -1,7 +1,9 @@
 {
+  "block.reasurecraft.display_case": "\uC804\uC2DC\uC7A5",
   "block.reasurecraft.metal_press": "\uAE08\uC18D \uC720\uC555\uAE30",
   "block.reasurecraft.silver_block": "\uC740 \uBE14\uB85D",
   "block.reasurecraft.silver_ore": "\uC740\uAD11\uC11D",
+  "container.reasurecraft.metal_press": "\uAE08\uC18D \uC720\uC555\uAE30",
   "item.reasurecraft.silver_axe": "\uC740 \uB3C4\uB07C",
   "item.reasurecraft.silver_boots": "\uC740 \uBD80\uCE20",
   "item.reasurecraft.silver_chestplate": "\uC740 \uD749\uAC11",
