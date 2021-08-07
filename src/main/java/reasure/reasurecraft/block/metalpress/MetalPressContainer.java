@@ -1,4 +1,4 @@
-package reasure.reasurecraft.gui.conatiner;
+package reasure.reasurecraft.block.metalpress;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.IntArray;
-import reasure.reasurecraft.block.tileentity.MetalPressTileEntity;
 import reasure.reasurecraft.init.ModContainerTypes;
 
 public class MetalPressContainer extends Container {

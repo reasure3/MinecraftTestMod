@@ -24,7 +24,11 @@ public class ReasureCraft {
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
 
+    public static ReasureCraft instance;
+
     public ReasureCraft() {
+        instance = this;
+
         // Register ModBlocks and ModItems
         Registration.register();
 

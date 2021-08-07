@@ -2,13 +2,15 @@ package reasure.reasurecraft.dategen.client;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.util.Direction;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import reasure.reasurecraft.ReasureCraft;
+import reasure.reasurecraft.block.ModBlockProperty;
 import reasure.reasurecraft.block.ModOreBlock;
 import reasure.reasurecraft.init.ModBlocks;
 
@@ -28,16 +30,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .element().cube("#stone").end()
                 .element().cube("#ore").end();
 
-        models().getBuilder("basic_machine").parent(models().getExistingFile(mcLoc("block/block")))
-                .texture("particle", modLoc("block/basic_machine_side"))
-                .element().allFaces((direction, faceBuilder) -> {
-            faceBuilder.cullface(direction);
-            if (direction == Direction.NORTH) faceBuilder.texture("#front");
-            else if (direction == Direction.UP) faceBuilder.texture("#top");
-            else if (direction == Direction.DOWN) faceBuilder.texture("#bottom");
-            else faceBuilder.texture("#side");
-        }).end();
-
         oreBlock(ModBlocks.SILVER_ORE.get(), "stone");
 
         BasicMachine(ModBlocks.METAL_PRESS.get());
@@ -46,9 +38,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void oreBlock(ModOreBlock block, String stone) {
-        ResourceLocation oreLoc = modLoc("block/" + Objects.requireNonNull(block.getRegistryName()).getPath());
+        ResourceLocation oreLoc = modLoc("block/" + name(block));
 
-        BlockModelBuilder modelBuilder = models().getBuilder(Objects.requireNonNull(block.getRegistryName()).getPath())
+        BlockModelBuilder modelBuilder = models().getBuilder(name(block))
                 .parent(models().getExistingFile(modLoc("block/ore")))
                 .texture("stone", mcLoc("block/" + stone))
                 .texture("ore", oreLoc)
@@ -58,17 +50,30 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void BasicMachine(Block block) {
-        BlockModelBuilder modelBuilder = models().getBuilder(Objects.requireNonNull(block.getRegistryName()).getPath())
-                .parent(models().getExistingFile(modLoc("block/basic_machine")))
-                .texture("front", modLoc("block/" + block.getRegistryName().getPath() + "_front_on"))
-                .texture("top", modLoc("block/basic_machine_top"))
-                .texture("bottom", modLoc("block/basic_machine_bottom"))
-                .texture("side", modLoc("block/basic_machine_side"));
+        final String block_name = name(block);
 
-        getVariantBuilder(block).partialState().setModels(new ConfiguredModel(modelBuilder));
+        ResourceLocation side = modLoc("block/basic_machine_side");
+        ResourceLocation bottom = modLoc("block/basic_machine_bottom");
+        ResourceLocation top = modLoc("block/basic_machine_top");
+        ResourceLocation front_on = modLoc("block/" + block_name + "_front_on");
+        ResourceLocation front_off = modLoc("block/" + block_name + "_front_off");
+
+        ModelBuilder<BlockModelBuilder> on = models().orientableWithBottom(block_name + "_on", side, front_on, bottom, top);
+        ModelBuilder<BlockModelBuilder> off = models().orientableWithBottom(block_name, side, front_off, bottom, top);
+
+        getVariantBuilder(block)
+                .forAllStates(state -> ConfiguredModel.builder()
+                        .modelFile(state.getValue(ModBlockProperty.ON) ? on : off)
+                        .rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360)
+                        .build()
+                );
     }
 
     private void ExistingModel(Block block) {
         getVariantBuilder(block).partialState().setModels(new ConfiguredModel(models().getExistingFile(block.getRegistryName())));
+    }
+
+    private String name(Block block) {
+        return Objects.requireNonNull(block.getRegistryName()).getPath();
     }
 }

@@ -52,6 +52,7 @@ public class ModLanguageProvider extends LanguageProvider {
                 helper.add(ModItems.SILVER_LEGGINGS.get(), "Silver Leggings");
                 helper.add(ModItems.SILVER_BOOTS.get(), "Silver Boots");
                 helper.add(ModItems.SILVER_HORSE_ARMOR.get(), "Silver Horse Armor");
+                helper.add(ModItems.POISON_APPLE.get(), "Poisonous Apple");
                 break;
             case "ko_kr":
                 helper.add(ModItems.SILVER_INGOT.get(), "은괴");
@@ -67,6 +68,7 @@ public class ModLanguageProvider extends LanguageProvider {
                 helper.add(ModItems.SILVER_LEGGINGS.get(), "은 각반");
                 helper.add(ModItems.SILVER_BOOTS.get(), "은 부츠");
                 helper.add(ModItems.SILVER_HORSE_ARMOR.get(), "은 말 갑옷");
+                helper.add(ModItems.POISON_APPLE.get(), "독사과");
                 break;
         }
     }

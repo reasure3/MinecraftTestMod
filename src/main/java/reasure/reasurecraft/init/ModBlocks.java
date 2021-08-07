@@ -14,7 +14,7 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import reasure.reasurecraft.block.DisplayCaseBlock;
 import reasure.reasurecraft.block.ModOreBlock;
-import reasure.reasurecraft.block.MetalPressBlock;
+import reasure.reasurecraft.block.metalpress.MetalPressBlock;
 import reasure.reasurecraft.block.QuarryBlock;
 import reasure.reasurecraft.item.itemgroup.ModItemGroup;
 

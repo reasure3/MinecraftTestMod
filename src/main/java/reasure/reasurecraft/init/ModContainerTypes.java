@@ -10,9 +10,9 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.network.IContainerFactory;
 import reasure.reasurecraft.gui.conatiner.DisplayCaseContainer;
-import reasure.reasurecraft.gui.conatiner.MetalPressContainer;
+import reasure.reasurecraft.block.metalpress.MetalPressContainer;
 import reasure.reasurecraft.gui.screen.DisplayCaseScreen;
-import reasure.reasurecraft.gui.screen.MetalPressScreen;
+import reasure.reasurecraft.block.metalpress.MetalPressScreen;
 
 public class ModContainerTypes {
     public static final RegistryObject<ContainerType<MetalPressContainer>> METAL_PRESS = register("metal_press", MetalPressContainer::new);

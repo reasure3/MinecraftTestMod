@@ -62,8 +62,7 @@ public class OreGeneration {
             List<Supplier<ConfiguredFeature<?, ?>>> feature = event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES);
             feature.add(() -> CONFIGURED_SILVER_ORE);
             feature.add(() -> CONFIGURED_SILVER_ORE_EXTRA);
-        }
-        else if (event.getCategory().equals(Biome.Category.THEEND)) {
+        } else if (event.getCategory().equals(Biome.Category.THEEND)) {
             List<Supplier<ConfiguredFeature<?, ?>>> feature = event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES);
             feature.add(() -> CONFIGURED_SILVER_ORE_END);
         }

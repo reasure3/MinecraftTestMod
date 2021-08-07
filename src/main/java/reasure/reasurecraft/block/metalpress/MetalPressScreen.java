@@ -1,4 +1,4 @@
-package reasure.reasurecraft.gui.screen;
+package reasure.reasurecraft.block.metalpress;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -7,10 +7,10 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import reasure.reasurecraft.ReasureCraft;
-import reasure.reasurecraft.gui.conatiner.MetalPressContainer;
 
 public class MetalPressScreen extends ContainerScreen<MetalPressContainer> {
     public static final ResourceLocation TEXTURE = ReasureCraft.getId("textures/gui/metal_press.png");
+
     public MetalPressScreen(MetalPressContainer container, PlayerInventory playerInventory, ITextComponent title) {
         super(container, playerInventory, title);
     }

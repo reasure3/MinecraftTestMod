@@ -1,15 +1,20 @@
-package reasure.reasurecraft.block;
+package reasure.reasurecraft.block.metalpress;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -21,16 +26,18 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+import reasure.reasurecraft.block.ModBlockProperty;
 import reasure.reasurecraft.init.ModTileEntityTypes;
-import reasure.reasurecraft.block.tileentity.MetalPressTileEntity;
 
 import javax.annotation.Nullable;
 
 public class MetalPressBlock extends Block {
     public static final DirectionProperty FACING = HorizontalBlock.FACING;
+    public static final BooleanProperty ON = ModBlockProperty.ON;
 
     public MetalPressBlock(Properties properties) {
         super(properties);
+        this.registerDefaultState(this.defaultBlockState().setValue(ON, false));
     }
 
     @Override
@@ -92,8 +99,14 @@ public class MetalPressBlock extends Block {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
+    public BlockRenderType getRenderShape(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
     @Override
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING, ON);
     }
 }

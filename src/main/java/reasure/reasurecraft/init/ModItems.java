@@ -4,6 +4,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 import reasure.reasurecraft.ReasureCraft;
+import reasure.reasurecraft.item.PoisonApple;
 import reasure.reasurecraft.item.material.ModArmorMaterial;
 import reasure.reasurecraft.item.itemgroup.ModItemGroup;
 import reasure.reasurecraft.item.material.ModItemTier;
@@ -39,6 +40,9 @@ public class ModItems {
             new Item(new Item.Properties().tab(ModItemGroup.reasurecraft)));
     public static final RegistryObject<Item> SILVER_DUST = Registration.ITEMS.register("silver_dust", () ->
             new Item(new Item.Properties().tab(ModItemGroup.reasurecraft)));
+
+    public static final RegistryObject<PoisonApple> POISON_APPLE = Registration.ITEMS.register("poison_apple", () ->
+            new PoisonApple(new Item.Properties().tab(ModItemGroup.reasurecraft)));
 
     private ModItems() {
     }

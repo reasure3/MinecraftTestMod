@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import reasure.reasurecraft.block.tileentity.DisplayCaseTileEntity;
-import reasure.reasurecraft.block.tileentity.MetalPressTileEntity;
+import reasure.reasurecraft.block.metalpress.MetalPressTileEntity;
 import reasure.reasurecraft.block.tileentity.QuarryTileEntity;
 
 import java.util.function.Supplier;

@@ -1,17 +1,26 @@
 package reasure.reasurecraft.dategen;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.potion.Potions;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.NBTIngredient;
 import reasure.reasurecraft.ReasureCraft;
+import reasure.reasurecraft.init.ModItems;
 import reasure.reasurecraft.util.Metals;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -34,6 +43,12 @@ public class ModRecipeProvider extends RecipeProvider {
         horse_armors(consumer);
         chain_armors(consumer);
         metals(consumer, 1.5f, Metals.METALS_SILVER);
+
+        ShapelessRecipeBuilder.shapeless(ModItems.POISON_APPLE.get())
+                .requires(Items.APPLE)
+                .requires(new ModNBTIngredient(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.POISON)))
+                .unlockedBy("has_item", has(Items.APPLE))
+                .save(consumer);
     }
 
     private void horse_armors(Consumer<IFinishedRecipe> consumer) {
@@ -259,6 +274,29 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Items.LEATHER_HORSE_ARMOR)
                     .unlockedBy("has_item", hasIngot)
                     .save(consumer);
+        }
+    }
+
+    protected static class ModNBTIngredient extends NBTIngredient {
+        private final ItemStack stack;
+
+        protected ModNBTIngredient(ItemStack stack) {
+            super(stack);
+            this.stack = stack;
+        }
+
+        @Override
+        public JsonElement toJson() {
+            JsonObject json = new JsonObject();
+            json.addProperty("type", Objects.requireNonNull(CraftingHelper.getID(Serializer.INSTANCE)).toString());
+            json.addProperty("item", Objects.requireNonNull(stack.getItem().getRegistryName()).toString());
+            if (stack.getCount() > 1)
+                json.addProperty("count", stack.getCount());
+            if (stack.hasTag()) {
+                assert stack.getTag() != null;
+                json.addProperty("nbt", stack.getTag().toString());
+            }
+            return json;
         }
     }
 }

@@ -1,4 +1,4 @@
-package reasure.reasurecraft.block.tileentity;
+package reasure.reasurecraft.block.metalpress;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,18 +12,16 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableTileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IIntArray;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.LockCode;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import reasure.reasurecraft.ReasureCraft;
-import reasure.reasurecraft.gui.conatiner.MetalPressContainer;
 import reasure.reasurecraft.init.ModRecipes;
 import reasure.reasurecraft.init.ModTileEntityTypes;
 import reasure.reasurecraft.item.crafting.recipe.PressingRecipe;
@@ -32,7 +30,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class MetalPressTileEntity extends LockableTileEntity implements ISidedInventory, ITickableTileEntity {
-    public static final int WORK_TIME = 2 * 20;
+    static final int WORK_TIME = 2 * 20;
     private final LazyOptional<? extends IItemHandler>[] handlers;
     private NonNullList<ItemStack> items;
     private int progress = 0;
@@ -216,6 +214,7 @@ public class MetalPressTileEntity extends LockableTileEntity implements ISidedIn
         super.save(tags);
         ItemStackHelper.saveAllItems(tags, this.items);
         tags.putInt("Progress", this.progress);
+
         return tags;
     }
 

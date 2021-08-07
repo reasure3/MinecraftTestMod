@@ -2,7 +2,7 @@
   "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
     "side": "reasurecraft:block/basic_machine_side",
-    "front": "reasurecraft:block/metal_press_front_off",
+    "front": "reasurecraft:block/metal_press_front_on",
     "bottom": "reasurecraft:block/basic_machine_bottom",
     "top": "reasurecraft:block/basic_machine_top"
   }
