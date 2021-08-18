@@ -20,12 +20,9 @@ public class KeyboardHelper {
 
     @OnlyIn(Dist.CLIENT)
     public static boolean isHoldingShift(Side side) {
-        boolean left = InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_LEFT_SHIFT) && (side != Side.RIGHT);
-        boolean right = InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_RIGHT_SHIFT)  && (side != Side.LEFT);
-        if (side == Side.BOTH_AND) {
-            return left && right;
-        }
-        return left || right;
+        boolean left = (side != Side.RIGHT) && InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_LEFT_SHIFT);
+        boolean right = (side != Side.LEFT) && InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_RIGHT_SHIFT);
+        return side == Side.BOTH_AND ? left && right : left || right;
     }
 
     public static String getShiftText(Side side) {
@@ -38,8 +35,9 @@ public class KeyboardHelper {
                 return "Shift";
             case BOTH_AND:
                 return "Both Shift";
+            default:
+                throw new IllegalStateException("Unexpected value: " + side);
         }
-        return "";
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -51,9 +49,6 @@ public class KeyboardHelper {
     public static boolean isHoldingCtrl(Side side) {
         boolean left = (side != Side.RIGHT) && InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_LEFT_CONTROL);
         boolean right = (side != Side.LEFT) && InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_RIGHT_CONTROL);
-        if (side == Side.BOTH_AND) {
-            return left && right;
-        }
-        return left || right;
+        return side == Side.BOTH_AND ? left && right : left || right;
     }
 }

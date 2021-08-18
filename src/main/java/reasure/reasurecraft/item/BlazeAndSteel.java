@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FlintAndSteelItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
@@ -18,6 +19,7 @@ import reasure.reasurecraft.util.TranslateHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 public class BlazeAndSteel extends FlintAndSteelItem {
     public BlazeAndSteel(Properties properties) {
@@ -43,14 +45,16 @@ public class BlazeAndSteel extends FlintAndSteelItem {
 
     protected ActionResultType fireEntity(ItemStack item, PlayerEntity player, LivingEntity target, Hand hand) {
         if (!target.fireImmune()) {
-            player.level.playSound(player, target, SoundEvents.FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 1.0f, random.nextFloat() * 0.4f + 0.8f);
+            player.awardStat(Stats.ITEM_USED.get(this));
+            player.playSound(SoundEvents.FLINTANDSTEEL_USE, 1.0f, random.nextFloat() * 0.4f + 0.8f);
             item.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
             int fireTick = random.nextInt(10 * 20 + 1) + 20;
             if (fireTick > target.getRemainingFireTicks()) {
-                target.setSecondsOnFire(fireTick);
+                target.setRemainingFireTicks(fireTick);
+                target.hurt(DamageSource.ON_FIRE, random.nextInt(4));
+            } else {
+                target.hurt(DamageSource.ON_FIRE, 1);
             }
-            target.hurt(DamageSource.ON_FIRE, random.nextInt(4));
-            player.awardStat(Stats.ITEM_USED.get(this));
             return ActionResultType.CONSUME;
         }
         return ActionResultType.FAIL;

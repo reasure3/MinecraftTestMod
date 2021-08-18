@@ -6,6 +6,7 @@ import net.minecraft.block.OreBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 
@@ -30,7 +31,7 @@ public class ModOreBlock extends OreBlock {
     }
 
     @Override
-    public int getExpDrop(BlockState state, net.minecraft.world.IWorldReader reader, BlockPos pos, int fortune, int silktouch) {
+    public int getExpDrop(BlockState state, IWorldReader reader, BlockPos pos, int fortune, int silktouch) {
         return silktouch == 0 ? this.xpOnDrop(RANDOM) : 0;
     }
 }
