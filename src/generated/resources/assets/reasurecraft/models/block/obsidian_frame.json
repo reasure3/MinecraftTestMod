@@ -1,0 +1,6 @@
+{
+  "parent": "reasurecraft:block/frame",
+  "textures": {
+    "0": "reasurecraft:block/obsidian_frame"
+  }
+}

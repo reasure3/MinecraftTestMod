@@ -8,17 +8,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.NBTIngredient;
-import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.init.ModItems;
 import reasure.reasurecraft.util.Metals;
+import reasure.reasurecraft.util.ModResourceLocation;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -31,34 +29,41 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
+        horse_armors(consumer);
+        chain_armors(consumer);
+        metals(consumer, 1.5f, Metals.METALS_SILVER);
+
         ShapedRecipeBuilder.shaped(Items.SADDLE)
                 .define('#', Tags.Items.LEATHER)
                 .define('C', Items.TRIPWIRE_HOOK)
                 .pattern("###")
                 .pattern("###")
                 .pattern("C C")
-                .unlockedBy("has_item", has(Tags.Items.LEATHER))
+                .unlockedBy("has_leather", has(Tags.Items.LEATHER))
                 .save(consumer);
-
-        horse_armors(consumer);
-        chain_armors(consumer);
-        metals(consumer, 1.5f, Metals.METALS_SILVER);
 
         ShapelessRecipeBuilder.shapeless(ModItems.POISON_APPLE.get())
                 .requires(Items.APPLE)
-                .requires(new ModNBTIngredient(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.POISON)))
-                .unlockedBy("has_item", has(Items.APPLE))
+                .requires(Items.SPIDER_EYE)
+                .requires(Tags.Items.DUSTS_GLOWSTONE)
+                .unlockedBy("has_apple", has(Items.APPLE))
+                .unlockedBy("has_spider_eye", has(Items.SPIDER_EYE))
                 .save(consumer);
     }
 
     private void horse_armors(Consumer<IFinishedRecipe> consumer) {
+        InventoryChangeTrigger.Instance hasChain = has(Items.CHAIN);
+        InventoryChangeTrigger.Instance hasLeather = has(Tags.Items.LEATHER);
+        InventoryChangeTrigger.Instance hasLeatherHorseArmor = has(Items.LEATHER_HORSE_ARMOR);
+
         ShapedRecipeBuilder.shaped(Items.LEATHER_HORSE_ARMOR)
                 .define('#', Tags.Items.LEATHER)
                 .define('C', Items.CHAIN)
                 .pattern("#C#")
                 .pattern("###")
                 .pattern("#C#")
-                .unlockedBy("has_item", has(Tags.Items.LEATHER))
+                .unlockedBy("has_leather", hasLeather)
+                .unlockedBy("has_chain", hasChain)
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(Items.LEATHER_HORSE_ARMOR)
@@ -67,34 +72,37 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("###")
                 .pattern("C#C")
                 .pattern("###")
-                .unlockedBy("has_item", has(Tags.Items.LEATHER))
+                .unlockedBy("has_leather", hasLeather)
+                .unlockedBy("has_chain", hasChain)
                 .save(consumer, new ResourceLocation(Items.LEATHER_HORSE_ARMOR.getRegistryName() + "_horizontal"));
 
         ShapelessRecipeBuilder.shapeless(Items.IRON_HORSE_ARMOR)
                 .requires(Tags.Items.INGOTS_IRON)
                 .requires(Items.LEATHER_HORSE_ARMOR)
-                .unlockedBy("has_item", has(Tags.Items.INGOTS_IRON))
+                .unlockedBy("has_leather_horse_armor", hasLeatherHorseArmor)
                 .save(consumer);
 
         ShapelessRecipeBuilder.shapeless(Items.GOLDEN_HORSE_ARMOR)
                 .requires(Tags.Items.INGOTS_GOLD)
                 .requires(Items.LEATHER_HORSE_ARMOR)
-                .unlockedBy("has_item", has(Tags.Items.INGOTS_GOLD))
+                .unlockedBy("has_leather_horse_armor", hasLeatherHorseArmor)
                 .save(consumer);
 
         ShapelessRecipeBuilder.shapeless(Items.DIAMOND_HORSE_ARMOR)
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .requires(Items.LEATHER_HORSE_ARMOR)
-                .unlockedBy("has_item", has(Tags.Items.GEMS_DIAMOND))
+                .unlockedBy("has_leather_horse_armor", hasLeatherHorseArmor)
                 .save(consumer);
     }
 
     private void chain_armors(Consumer<IFinishedRecipe> consumer) {
+        InventoryChangeTrigger.Instance hasChain = has(Items.CHAIN);
+
         ShapedRecipeBuilder.shaped(Items.CHAINMAIL_HELMET)
                 .define('#', Items.CHAIN)
                 .pattern("###")
                 .pattern("# #")
-                .unlockedBy("has_item", has(Items.CHAIN))
+                .unlockedBy("has_chain", hasChain)
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(Items.CHAINMAIL_CHESTPLATE)
@@ -102,7 +110,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("# #")
                 .pattern("###")
                 .pattern("###")
-                .unlockedBy("has_item", has(Items.CHAIN))
+                .unlockedBy("has_chain", hasChain)
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(Items.CHAINMAIL_LEGGINGS)
@@ -110,25 +118,25 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("###")
                 .pattern("# #")
                 .pattern("# #")
-                .unlockedBy("has_item", has(Items.CHAIN))
+                .unlockedBy("has_chain", hasChain)
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(Items.CHAINMAIL_BOOTS)
                 .define('#', Items.CHAIN)
                 .pattern("# #")
                 .pattern("# #")
-                .unlockedBy("has_item", has(Items.CHAIN))
+                .unlockedBy("has_chain", hasChain)
                 .save(consumer);
     }
 
     private void oreSmelting(Consumer<IFinishedRecipe> consumer, ITag<Item> ore, IItemProvider item, String name) {
         CookingRecipeBuilder.smelting(Ingredient.of(ore), item, 0.2F, 200)
-                .unlockedBy("has_item", has(ore))
-                .save(consumer, ReasureCraft.getId(name + "_ore_smelting"));
+                .unlockedBy("has_ore", has(ore))
+                .save(consumer, ModResourceLocation.getId(name + "_ore_smelting"));
 
         CookingRecipeBuilder.blasting(Ingredient.of(ore), item, 0.2F, 100)
-                .unlockedBy("has_item", has(ore))
-                .save(consumer, ReasureCraft.getId(name + "_ore_blasting"));
+                .unlockedBy("has_ore", has(ore))
+                .save(consumer, ModResourceLocation.getId(name + "_ore_blasting"));
     }
 
     private void metals(Consumer<IFinishedRecipe> consumer, float smeltingXp, Metals metal) {
@@ -141,28 +149,28 @@ public class ModRecipeProvider extends RecipeProvider {
         if (metal.block != null) {
             ShapelessRecipeBuilder.shapeless(metal.ingot, 9)
                     .requires(metal.blockTag)
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer, new ResourceLocation(metal.ingot.asItem().getRegistryName() + "_from_block"));
             ShapedRecipeBuilder.shaped(metal.block)
                     .define('#', metal.ingotTag)
                     .pattern("###")
                     .pattern("###")
                     .pattern("###")
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer);
         }
 
         if (metal.nugget != null) {
             ShapelessRecipeBuilder.shapeless(metal.nugget, 9)
                     .requires(metal.ingotTag)
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer);
             ShapedRecipeBuilder.shaped(metal.ingot)
                     .define('#', metal.nuggetTag)
                     .pattern("###")
                     .pattern("###")
                     .pattern("###")
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer, new ResourceLocation(metal.ingot.asItem().getRegistryName() + "_from_nuggets"));
         }
 
@@ -170,9 +178,9 @@ public class ModRecipeProvider extends RecipeProvider {
             Ingredient dustOrChunks = metal.chunksTag != null
                     ? Ingredient.fromValues(Stream.of(new Ingredient.TagList(metal.chunksTag), new Ingredient.TagList(metal.dustTag)))
                     : Ingredient.of(metal.dustTag);
-            CookingRecipeBuilder.smelting(dustOrChunks, metal.ingot, smeltingXp, 200)
-                    .unlockedBy("has_item", hasIngot)
-                    .save(consumer, ReasureCraft.getId(metal.name + "_dust_smelting"));
+            CookingRecipeBuilder.smelting(dustOrChunks, metal.ore, smeltingXp, 200)
+                    .unlockedBy("has_ore", has(metal.oreTag))
+                    .save(consumer, ModResourceLocation.getId(metal.name + "_dust_smelting"));
         }
 
         if (metal.sword != null) {
@@ -182,7 +190,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .pattern("#")
                     .pattern("#")
                     .pattern("R")
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer);
         }
 
@@ -193,7 +201,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .pattern("#")
                     .pattern("R")
                     .pattern("R")
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer);
         }
 
@@ -204,7 +212,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .pattern("###")
                     .pattern(" R ")
                     .pattern(" R ")
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer);
         }
 
@@ -215,7 +223,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .pattern("##")
                     .pattern("#R")
                     .pattern(" R")
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer);
         }
 
@@ -226,7 +234,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .pattern("##")
                     .pattern(" R")
                     .pattern(" R")
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer);
         }
 
@@ -235,7 +243,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('#', metal.ingotTag)
                     .pattern("###")
                     .pattern("# #")
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer);
         }
 
@@ -245,7 +253,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .pattern("# #")
                     .pattern("###")
                     .pattern("###")
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer);
         }
 
@@ -255,7 +263,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .pattern("###")
                     .pattern("# #")
                     .pattern("# #")
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer);
         }
 
@@ -264,7 +272,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('#', metal.ingotTag)
                     .pattern("# #")
                     .pattern("# #")
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_ingot", hasIngot)
                     .save(consumer);
         }
 
@@ -272,7 +280,7 @@ public class ModRecipeProvider extends RecipeProvider {
             ShapelessRecipeBuilder.shapeless(metal.horse_armor)
                     .requires(metal.ingotTag)
                     .requires(Items.LEATHER_HORSE_ARMOR)
-                    .unlockedBy("has_item", hasIngot)
+                    .unlockedBy("has_leather_horse_armor", has(Items.LEATHER_HORSE_ARMOR))
                     .save(consumer);
         }
     }
@@ -290,8 +298,9 @@ public class ModRecipeProvider extends RecipeProvider {
             JsonObject json = new JsonObject();
             json.addProperty("type", Objects.requireNonNull(CraftingHelper.getID(Serializer.INSTANCE)).toString());
             json.addProperty("item", Objects.requireNonNull(stack.getItem().getRegistryName()).toString());
-            if (stack.getCount() > 1)
+            if (stack.getCount() > 1) {
                 json.addProperty("count", stack.getCount());
+            }
             if (stack.hasTag()) {
                 assert stack.getTag() != null;
                 json.addProperty("nbt", stack.getTag().toString());

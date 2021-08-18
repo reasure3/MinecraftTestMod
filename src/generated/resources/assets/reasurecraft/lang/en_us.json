@@ -1,9 +1,15 @@
 {
   "block.reasurecraft.display_case": "Display Case",
   "block.reasurecraft.metal_press": "Metal Press",
+  "block.reasurecraft.obsidian_frame": "Obsidian Frame",
+  "block.reasurecraft.peanuts": "Peanuts",
   "block.reasurecraft.silver_block": "Block of Silver",
   "block.reasurecraft.silver_ore": "Silver Ore",
+  "container.reasurecraft.display_case": "Display Case",
   "container.reasurecraft.metal_press": "Metal Press",
+  "item.reasurecraft.blaze_and_steel": "Blaze And Steel",
+  "item.reasurecraft.blaze_ingot": "Blaze Ingot",
+  "item.reasurecraft.peanut": "Peanut",
   "item.reasurecraft.poison_apple": "Poisonous Apple",
   "item.reasurecraft.silver_axe": "Silver Axe",
   "item.reasurecraft.silver_boots": "Silver Boots",
@@ -18,5 +24,9 @@
   "item.reasurecraft.silver_pickaxe": "Silver Pickaxe",
   "item.reasurecraft.silver_shovel": "Silver Shovel",
   "item.reasurecraft.silver_sword": "Silver Sword",
-  "itemGroup.reasurecraft": "Reasure Craft"
+  "item.reasurecraft.special_coal": "Special Coal",
+  "itemGroup.reasurecraft": "Reasure Craft",
+  "tooltip.reasurecraft.blaze_and_steel": "When use on block: light the block fire.\nWhen use on air: light me on fire.\nWhen use on mob: light mob on fire.",
+  "tooltip.reasurecraft.more_information": "Hold %1$s%2$s%3$s for more information!",
+  "tooltip.reasurecraft.special_coal": "This is an infinite coal.\nIts burning time is only 1tick, but not consumed after used as a fuel."
 }

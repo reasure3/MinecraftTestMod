@@ -1,6 +1,6 @@
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-package reasure.reasurecraft.gui.conatiner;
+package reasure.reasurecraft.item;
 
 import mcp.MethodsReturnNonnullByDefault;
 

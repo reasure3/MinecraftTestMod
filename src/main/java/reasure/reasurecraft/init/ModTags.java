@@ -17,6 +17,7 @@ public class ModTags {
             return BlockTags.bind(new ResourceLocation("forge", path).toString());
         }
 
+        @SuppressWarnings("unused")
         private static ITag.INamedTag<Block> mod(String path) {
             return BlockTags.bind(new ResourceLocation(ReasureCraft.MOD_ID, path).toString());
         }
@@ -34,6 +35,7 @@ public class ModTags {
             return ItemTags.bind(new ResourceLocation("forge", path).toString());
         }
 
+        @SuppressWarnings("unused")
         private static ITag.INamedTag<Item> mod(String path) {
             return ItemTags.bind(new ResourceLocation(ReasureCraft.MOD_ID, path).toString());
         }

@@ -6,12 +6,22 @@
     ]
   },
   "criteria": {
-    "has_item": {
+    "has_apple": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "item": "minecraft:apple"
+          }
+        ]
+      }
+    },
+    "has_spider_eye": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:spider_eye"
           }
         ]
       }
@@ -25,7 +35,8 @@
   },
   "requirements": [
     [
-      "has_item",
+      "has_apple",
+      "has_spider_eye",
       "has_the_recipe"
     ]
   ]

@@ -10,6 +10,7 @@ import reasure.reasurecraft.util.Metals;
 public class ModItemModelProvider extends ItemModelProvider {
     ModelFile itemGenerated = getExistingFile(mcLoc("item/generated")); //default item
     ModelFile itemHandheld = getExistingFile(mcLoc("item/handheld")); //handheld item
+
     public ModItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, ReasureCraft.MOD_ID, existingFileHelper);
     }
@@ -21,8 +22,13 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent("metal_press", modLoc("block/metal_press"));
         withExistingParent("quarry", modLoc("block/quarry"));
         withExistingParent("display_case", modLoc("block/display_case"));
+        withExistingParent("obsidian_frame", modLoc("block/obsidian_frame"));
 
         builder(itemGenerated, "poison_apple");
+        builder(itemGenerated, "special_coal");
+        builder(itemGenerated, "blaze_ingot");
+        builder(itemGenerated, "blaze_and_steel");
+        builder(itemGenerated, "peanut");
     }
 
     private void builder(ModelFile model, String name) {

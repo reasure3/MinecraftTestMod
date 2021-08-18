@@ -1,15 +1,14 @@
 package reasure.reasurecraft.block.metalpress;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import reasure.reasurecraft.ReasureCraft;
+import reasure.reasurecraft.util.ModResourceLocation;
 
 public class MetalPressScreen extends ContainerScreen<MetalPressContainer> {
-    public static final ResourceLocation TEXTURE = ReasureCraft.getId("textures/gui/metal_press.png");
+    public static final ResourceLocation TEXTURE = ModResourceLocation.getId("textures/gui/metal_press.png");
 
     public MetalPressScreen(MetalPressContainer container, PlayerInventory playerInventory, ITextComponent title) {
         super(container, playerInventory, title);
@@ -28,8 +27,7 @@ public class MetalPressScreen extends ContainerScreen<MetalPressContainer> {
             return;
         }
 
-        //noinspection deprecation
-        RenderSystem.color4f(1, 1, 1, 1);
+//        RenderSystem.clearColor(1, 1, 1, 1);
         minecraft.getTextureManager().bind(TEXTURE);
 
         int posX = (this.width - this.imageWidth) / 2;

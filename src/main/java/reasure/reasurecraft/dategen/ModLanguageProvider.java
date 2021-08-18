@@ -8,6 +8,7 @@ import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.init.ModBlocks;
 import reasure.reasurecraft.init.ModItems;
 import reasure.reasurecraft.item.itemgroup.ModItemGroup;
+import reasure.reasurecraft.util.TranslateHelper;
 
 import java.util.Objects;
 
@@ -26,12 +27,16 @@ public class ModLanguageProvider extends LanguageProvider {
                 helper.add(ModBlocks.SILVER_BLOCK.get(), "Block of Silver");
                 helper.add(ModBlocks.METAL_PRESS.get(), "Metal Press");
                 helper.add(ModBlocks.DISPLAY_CASE.get(), "Display Case");
+                helper.add(ModBlocks.OBSIDIAN_FRAME.get(), "Obsidian Frame");
+                helper.add(ModBlocks.PEANUTS.get(), "Peanuts");
                 break;
             case "ko_kr":
                 helper.add(ModBlocks.SILVER_ORE.get(), "은광석");
                 helper.add(ModBlocks.SILVER_BLOCK.get(), "은 블록");
                 helper.add(ModBlocks.METAL_PRESS.get(), "금속 유압기");
                 helper.add(ModBlocks.DISPLAY_CASE.get(), "전시장");
+                helper.add(ModBlocks.OBSIDIAN_FRAME.get(), "흑요석 프레임");
+                helper.add(ModBlocks.PEANUTS.get(), "Peanuts");
                 break;
         }
     }
@@ -53,6 +58,10 @@ public class ModLanguageProvider extends LanguageProvider {
                 helper.add(ModItems.SILVER_BOOTS.get(), "Silver Boots");
                 helper.add(ModItems.SILVER_HORSE_ARMOR.get(), "Silver Horse Armor");
                 helper.add(ModItems.POISON_APPLE.get(), "Poisonous Apple");
+                helper.add(ModItems.SPECIAL_COAL.get(), "Special Coal");
+                helper.add(ModItems.BLAZE_INGOT.get(), "Blaze Ingot");
+                helper.add(ModItems.BLAZE_AND_STEEL.get(), "Blaze And Steel");
+                helper.add(ModItems.PEANUT.get(), "Peanut");
                 break;
             case "ko_kr":
                 helper.add(ModItems.SILVER_INGOT.get(), "은괴");
@@ -69,6 +78,10 @@ public class ModLanguageProvider extends LanguageProvider {
                 helper.add(ModItems.SILVER_BOOTS.get(), "은 부츠");
                 helper.add(ModItems.SILVER_HORSE_ARMOR.get(), "은 말 갑옷");
                 helper.add(ModItems.POISON_APPLE.get(), "독사과");
+                helper.add(ModItems.SPECIAL_COAL.get(), "특별한 석탄");
+                helper.add(ModItems.BLAZE_INGOT.get(), "블레이즈 주괴");
+                helper.add(ModItems.BLAZE_AND_STEEL.get(), "블레이즈 라이터");
+                helper.add(ModItems.PEANUT.get(), "땅콩");
                 break;
         }
     }
@@ -82,14 +95,34 @@ public class ModLanguageProvider extends LanguageProvider {
                 helper.add(ModItemGroup.reasurecraft, "래져 크래프트");
         }
     }
-    
+
     private void containers(PrefixHelper helper, String locale) {
         switch (locale) {
             case "en_us":
                 helper.addContainer(ModBlocks.METAL_PRESS.get(), "Metal Press");
+                helper.addContainer(ModBlocks.DISPLAY_CASE.get(), "Display Case");
                 break;
             case "ko_kr":
                 helper.addContainer(ModBlocks.METAL_PRESS.get(), "금속 유압기");
+                helper.addContainer(ModBlocks.DISPLAY_CASE.get(), "전시장");
+        }
+    }
+
+    private void tooltips(PrefixHelper helper, String locale) {
+        switch (locale) {
+            case "en_us":
+                helper.addTooltip("more_information", "Hold %1$s%2$s%3$s for more information!");
+                helper.addTooltip(ModItems.SPECIAL_COAL.get(),
+                        "This is an infinite coal.\nIts burning time is only 1tick, but not consumed after used as a fuel.");
+                helper.addTooltip(ModItems.BLAZE_AND_STEEL.get(),
+                        "When use on block: light the block fire.\nWhen use on air: light me on fire.\nWhen use on mob: light mob on fire.");
+                break;
+            case "ko_kr":
+                helper.addTooltip("more_information", "%1$s%2$s%3$s를 눌러 더 많은 정보 확인");
+                helper.addTooltip(ModItems.SPECIAL_COAL.get(),
+                        "무한한 석탄\n타는 시간은 고작 1틱 뿐이지만, 연료로 사용되고 난 후에 사라지지 않음.");
+                helper.addTooltip(ModItems.BLAZE_AND_STEEL.get(),
+                        "블럭에 사용: 블럭에 불을 붙임.\n허공에 사용: 나에게 불을 붙임.\n몹에게 사용: 몹에게 불을 붙임.");
         }
     }
 
@@ -100,8 +133,10 @@ public class ModLanguageProvider extends LanguageProvider {
         items(helper, locale);
         itemGroups(helper, locale);
         containers(helper, locale);
+        tooltips(helper, locale);
     }
 
+    @SuppressWarnings("unused")
     public String getLocale() {
         return locale;
     }
@@ -118,6 +153,7 @@ public class ModLanguageProvider extends LanguageProvider {
             this.prefix = prefix + ".";
         }
 
+        @SuppressWarnings("unused")
         public void add(String translationKey, String translation) {
             provider.add(prefix + translationKey, translation);
         }
@@ -137,6 +173,14 @@ public class ModLanguageProvider extends LanguageProvider {
         public void addContainer(Block key, String name) {
             setPrefix("container.reasurecraft");
             provider.add(prefix + Objects.requireNonNull(key.getRegistryName()).getPath(), name);
+        }
+
+        public void addTooltip(String key, String name) {
+            provider.add(TranslateHelper.getTooltipPrefix(key), name);
+        }
+
+        public void addTooltip(Item key, String name) {
+            provider.add(TranslateHelper.getTooltipPrefix(key), name);
         }
     }
 }

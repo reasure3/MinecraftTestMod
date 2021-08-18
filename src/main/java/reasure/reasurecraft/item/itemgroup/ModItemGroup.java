@@ -7,8 +7,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import reasure.reasurecraft.init.ModItems;
 
 public abstract class ModItemGroup extends ItemGroup {
-    private final String label;
-
     public static final ModItemGroup reasurecraft = new ModItemGroup("reasurecraft") {
         @OnlyIn(Dist.CLIENT)
         @Override
@@ -16,6 +14,7 @@ public abstract class ModItemGroup extends ItemGroup {
             return new ItemStack(ModItems.SILVER_PICKAXE.get());
         }
     };
+    private final String label;
 
     public ModItemGroup(String label) {
         super(label);

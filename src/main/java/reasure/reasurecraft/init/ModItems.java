@@ -3,15 +3,16 @@ package reasure.reasurecraft.init;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
-import reasure.reasurecraft.ReasureCraft;
-import reasure.reasurecraft.item.PoisonApple;
-import reasure.reasurecraft.item.material.ModArmorMaterial;
+import reasure.reasurecraft.item.BlazeAndSteel;
+import reasure.reasurecraft.item.SpecialCoal;
 import reasure.reasurecraft.item.itemgroup.ModItemGroup;
+import reasure.reasurecraft.item.material.ModArmorMaterial;
 import reasure.reasurecraft.item.material.ModItemTier;
+import reasure.reasurecraft.util.ModResourceLocation;
 
 public class ModItems {
     public static final RegistryObject<HorseArmorItem> SILVER_HORSE_ARMOR = Registration.ITEMS.register("silver_horse_armor", () ->
-            new HorseArmorItem(5, ReasureCraft.getId("textures/entity/horse/armor/horse_armor_silver.png"),
+            new HorseArmorItem(5, ModResourceLocation.getId("textures/entity/horse/armor/horse_armor_silver.png"),
                     new Item.Properties().stacksTo(1).tab(ModItemGroup.reasurecraft)));
     //공격력 계산 공식 = 1 + ItemTier 공격력 + 무기 공격력
     //공격 속도 계산 공식 = 4 + 무기 공격 속도
@@ -41,8 +42,20 @@ public class ModItems {
     public static final RegistryObject<Item> SILVER_DUST = Registration.ITEMS.register("silver_dust", () ->
             new Item(new Item.Properties().tab(ModItemGroup.reasurecraft)));
 
-    public static final RegistryObject<PoisonApple> POISON_APPLE = Registration.ITEMS.register("poison_apple", () ->
-            new PoisonApple(new Item.Properties().tab(ModItemGroup.reasurecraft)));
+    public static final RegistryObject<Item> BLAZE_INGOT = Registration.ITEMS.register("blaze_ingot", () ->
+            new Item(new Item.Properties().fireResistant().tab(ModItemGroup.reasurecraft)));
+
+    public static final RegistryObject<BlazeAndSteel> BLAZE_AND_STEEL = Registration.ITEMS.register("blaze_and_steel", () ->
+            new BlazeAndSteel(new Item.Properties().tab(ModItemGroup.reasurecraft)));
+
+    public static final RegistryObject<Item> POISON_APPLE = Registration.ITEMS.register("poison_apple", () ->
+            new Item(new Item.Properties().food(ModFoods.POISON_APPLE).tab(ModItemGroup.reasurecraft)));
+
+    public static final RegistryObject<SpecialCoal> SPECIAL_COAL = Registration.ITEMS.register("special_coal", () ->
+            new SpecialCoal(new Item.Properties().tab(ModItemGroup.reasurecraft)));
+
+    public static final RegistryObject<BlockNamedItem> PEANUT = Registration.ITEMS.register("peanut", () ->
+            new BlockNamedItem(ModBlocks.PEANUTS.get(), new Item.Properties().food(ModFoods.PEANUT).tab(ModItemGroup.reasurecraft)));
 
     private ModItems() {
     }

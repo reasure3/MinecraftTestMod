@@ -5,9 +5,10 @@
       "item": "minecraft:apple"
     },
     {
-      "type": "forge:nbt",
-      "item": "minecraft:potion",
-      "nbt": "{Potion:\"minecraft:poison\"}"
+      "item": "minecraft:spider_eye"
+    },
+    {
+      "tag": "forge:dusts/glowstone"
     }
   ],
   "result": {

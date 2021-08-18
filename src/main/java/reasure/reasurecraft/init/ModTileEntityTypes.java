@@ -3,8 +3,12 @@ package reasure.reasurecraft.init;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
-import reasure.reasurecraft.block.tileentity.DisplayCaseTileEntity;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import reasure.reasurecraft.block.displaycase.DisplayCaseRenderer;
+import reasure.reasurecraft.block.displaycase.DisplayCaseTileEntity;
 import reasure.reasurecraft.block.metalpress.MetalPressTileEntity;
 import reasure.reasurecraft.block.tileentity.QuarryTileEntity;
 
@@ -25,5 +29,10 @@ public class ModTileEntityTypes {
             //noinspection ConstantConditions
             return TileEntityType.Builder.of(factory, block.get()).build(null);
         });
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void registerRenderers() {
+        ClientRegistry.bindTileEntityRenderer(ModTileEntityTypes.DISPLAY_CASE.get(), DisplayCaseRenderer::new);
     }
 }

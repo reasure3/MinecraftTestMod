@@ -1,4 +1,4 @@
-package reasure.reasurecraft.gui.conatiner;
+package reasure.reasurecraft.block.displaycase;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
-import reasure.reasurecraft.block.tileentity.DisplayCaseTileEntity;
 import reasure.reasurecraft.init.ModBlocks;
 import reasure.reasurecraft.init.ModContainerTypes;
 
@@ -48,14 +47,14 @@ public class DisplayCaseContainer extends Container {
         Objects.requireNonNull(data, "Packet Buffer cannot be null.");
         final TileEntity te = playerInv.player.level.getBlockEntity(data.readBlockPos());
         if (te instanceof DisplayCaseTileEntity) {
-            return (DisplayCaseTileEntity) te;
+            return (DisplayCaseTileEntity)te;
         }
         throw new IllegalStateException("Tile Entity Is Not Correct");
     }
 
     @Override
-    public boolean stillValid(PlayerEntity playerIn) {
-        return stillValid(canInteractWithCallable, playerIn, ModBlocks.DISPLAY_CASE.get());
+    public boolean stillValid(PlayerEntity player) {
+        return stillValid(canInteractWithCallable, player, ModBlocks.DISPLAY_CASE.get());
     }
 
     @Override
@@ -65,10 +64,11 @@ public class DisplayCaseContainer extends Container {
         if (slot != null && slot.hasItem()) {
             ItemStack stack1 = slot.getItem();
             stack = stack1.copy();
-            if (index < DisplayCaseTileEntity.slots && !this.moveItemStackTo(stack1, DisplayCaseTileEntity.slots, this.slots.size(), true)) {
+            // min index, max index -> [min, max) true: min to max   false: max to min
+            if (index < 1 && !this.moveItemStackTo(stack1, 1, this.slots.size(), true)) {
                 return ItemStack.EMPTY;
             }
-            if (!this.moveItemStackTo(stack1, 0, DisplayCaseTileEntity.slots, false)) {
+            if (!this.moveItemStackTo(stack1, 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
             if (stack1.isEmpty()) {

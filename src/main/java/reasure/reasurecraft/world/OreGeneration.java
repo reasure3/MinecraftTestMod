@@ -18,7 +18,6 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.init.ModBlocks;
 
@@ -33,15 +32,13 @@ public class OreGeneration {
 
     public static RuleTest ENDSTONE = new BlockMatchRuleTest(Blocks.END_STONE);
 
-    public static void registerOres(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            CONFIGURED_SILVER_ORE = register("silver_ore", OreRange(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
-                    ModBlocks.SILVER_ORE.get().defaultBlockState(), 9, 32, 4));
-            CONFIGURED_SILVER_ORE_EXTRA = register("silver_ore_extra", OreTopSolid(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
-                    ModBlocks.SILVER_ORE.get().defaultBlockState(), 9, 32, 32, 80, 24));
-            CONFIGURED_SILVER_ORE_END = register("silver_ore", OreRange(ENDSTONE,
-                    ModBlocks.SILVER_ORE.get().defaultBlockState(), 9, 32, 4));
-        });
+    public static void registerOres() {
+        CONFIGURED_SILVER_ORE = register("silver_ore", OreRange(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                ModBlocks.SILVER_ORE.get().defaultBlockState(), 9, 32, 4));
+        CONFIGURED_SILVER_ORE_EXTRA = register("silver_ore_extra", OreTopSolid(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                ModBlocks.SILVER_ORE.get().defaultBlockState(), 9, 32, 32, 80, 24));
+        CONFIGURED_SILVER_ORE_END = register("silver_ore", OreRange(ENDSTONE,
+                ModBlocks.SILVER_ORE.get().defaultBlockState(), 9, 32, 4));
     }
 
     private static ConfiguredFeature<?, ?> OreRange(RuleTest fillerType, BlockState state, int veinSize, int range, int frequency) {

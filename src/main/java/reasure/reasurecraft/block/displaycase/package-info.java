@@ -1,6 +1,6 @@
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-package reasure.reasurecraft.item.crafting;
+package reasure.reasurecraft.block.displaycase;
 
 import mcp.MethodsReturnNonnullByDefault;
 

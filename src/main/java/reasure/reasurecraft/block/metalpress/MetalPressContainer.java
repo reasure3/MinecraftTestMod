@@ -15,11 +15,11 @@ public class MetalPressContainer extends Container {
     private final IInventory inventory;
     private final IIntArray fields;
 
-    public MetalPressContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
+    public MetalPressContainer(final int id, final PlayerInventory playerInventory, final PacketBuffer buffer) {
         this(id, playerInventory, new MetalPressTileEntity(), new IntArray(buffer.readByte())); // read form encodeExtraData in MetalPressTileEntity
     }
 
-    public MetalPressContainer(int id, PlayerInventory playerInventory, IInventory inventory, IIntArray fields) {
+    public MetalPressContainer(final int id, final PlayerInventory playerInventory, final IInventory inventory, IIntArray fields) {
         super(ModContainerTypes.METAL_PRESS.get(), id);
         this.inventory = inventory;
         this.fields = fields;
@@ -71,6 +71,7 @@ public class MetalPressContainer extends Container {
             final int playerHotbarEnd = playerInventoryEnd + 9;
 
             if (index == 1) {
+                // min index, max index -> [min, max) true: min to max   false: max to min
                 if (!this.moveItemStackTo(itemstack1, inventorySize, playerHotbarEnd, true)) {
                     return ItemStack.EMPTY;
                 }

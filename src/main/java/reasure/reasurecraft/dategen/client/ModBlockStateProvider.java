@@ -1,6 +1,7 @@
 package reasure.reasurecraft.dategen.client;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.CropsBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ResourceLocation;
@@ -10,6 +11,7 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import reasure.reasurecraft.ReasureCraft;
+import reasure.reasurecraft.block.FrameBlock;
 import reasure.reasurecraft.block.ModBlockProperty;
 import reasure.reasurecraft.block.ModOreBlock;
 import reasure.reasurecraft.init.ModBlocks;
@@ -32,15 +34,19 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         oreBlock(ModBlocks.SILVER_ORE.get(), "stone");
 
-        BasicMachine(ModBlocks.METAL_PRESS.get());
+        BasicMachineBlock(ModBlocks.METAL_PRESS.get());
 
         ExistingModel(ModBlocks.DISPLAY_CASE.get());
+
+        FrameBlock(ModBlocks.OBSIDIAN_FRAME.get());
+
+        CropBlock(ModBlocks.PEANUTS.get(), 4, new int[]{0, 0, 1, 1, 2, 2, 2, 3});
     }
 
     private void oreBlock(ModOreBlock block, String stone) {
         ResourceLocation oreLoc = modLoc("block/" + name(block));
 
-        BlockModelBuilder modelBuilder = models().getBuilder(name(block))
+        ModelBuilder<BlockModelBuilder> modelBuilder = models().getBuilder(name(block))
                 .parent(models().getExistingFile(modLoc("block/ore")))
                 .texture("stone", mcLoc("block/" + stone))
                 .texture("ore", oreLoc)
@@ -49,7 +55,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         getVariantBuilder(block).partialState().setModels(new ConfiguredModel(modelBuilder));
     }
 
-    private void BasicMachine(Block block) {
+    private void BasicMachineBlock(Block block) {
         final String block_name = name(block);
 
         ResourceLocation side = modLoc("block/basic_machine_side");
@@ -61,12 +67,32 @@ public class ModBlockStateProvider extends BlockStateProvider {
         ModelBuilder<BlockModelBuilder> on = models().orientableWithBottom(block_name + "_on", side, front_on, bottom, top);
         ModelBuilder<BlockModelBuilder> off = models().orientableWithBottom(block_name, side, front_off, bottom, top);
 
-        getVariantBuilder(block)
-                .forAllStates(state -> ConfiguredModel.builder()
-                        .modelFile(state.getValue(ModBlockProperty.ON) ? on : off)
-                        .rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360)
-                        .build()
-                );
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(state.getValue(ModBlockProperty.ON) ? on : off)
+                .rotationY(((int)state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360)
+                .build());
+    }
+
+    private void FrameBlock(FrameBlock block) {
+        ModelBuilder<BlockModelBuilder> modelBuilder = models().getBuilder(name(block))
+                .parent(models().getExistingFile(modLoc("block/frame")))
+                .texture("0", modLoc("block/" + name(block)));
+
+        getVariantBuilder(block).partialState().setModels(new ConfiguredModel(modelBuilder));
+    }
+
+    private void CropBlock(CropsBlock block, int size, int[] stages) {
+        //noinspection unchecked
+        ModelBuilder<BlockModelBuilder>[] modelBuilders = new ModelBuilder[size];
+
+        for (int i = 0; i < size; i++) {
+            String name = "block/" + name(block) + "_stage" + i;
+            modelBuilders[i] = models().crop(name, modLoc(name));
+        }
+
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(modelBuilders[stages[state.getValue(BlockStateProperties.AGE_7)]])
+                .build());
     }
 
     private void ExistingModel(Block block) {

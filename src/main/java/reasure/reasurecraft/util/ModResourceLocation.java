@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 import reasure.reasurecraft.ReasureCraft;
 
 public class ModResourceLocation extends ResourceLocation {
-    public ModResourceLocation(String resourceName) {
+    protected ModResourceLocation(String resourceName) {
         super(addModNamespace(resourceName));
     }
 
@@ -13,5 +13,12 @@ public class ModResourceLocation extends ResourceLocation {
             return resourceName;
         }
         return ReasureCraft.MOD_ID + ":" + resourceName;
+    }
+
+    public static ModResourceLocation getId(String path) {
+        if (path.contains(":")) {
+            throw new IllegalArgumentException("path contains namespace");
+        }
+        return new ModResourceLocation(path);
     }
 }

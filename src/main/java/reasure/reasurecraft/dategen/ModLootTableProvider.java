@@ -2,24 +2,26 @@ package reasure.reasurecraft.dategen;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
+import net.minecraft.block.CropsBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.LootTableProvider;
 import net.minecraft.data.loot.BlockLootTables;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.loot.*;
+import net.minecraft.loot.conditions.BlockStateProperty;
+import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.loot.functions.ApplyBonus;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.RegistryObject;
 import reasure.reasurecraft.init.ModBlocks;
-import reasure.reasurecraft.init.Registration;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class ModLootTableProvider extends LootTableProvider {
     public ModLootTableProvider(DataGenerator generatorIn) {
@@ -51,6 +53,21 @@ public class ModLootTableProvider extends LootTableProvider {
             dropSelf(ModBlocks.SILVER_BLOCK.get());
             dropSelf(ModBlocks.SILVER_ORE.get());
             dropSelf(ModBlocks.METAL_PRESS.get());
+            dropSelf(ModBlocks.OBSIDIAN_FRAME.get());
+            cropDrop(ModBlocks.PEANUTS.get(), 5, 0.5714286f);
+        }
+
+        @SuppressWarnings("SameParameterValue")
+        private void cropDrop(CropsBlock block, int extra, float probability) {
+            ILootCondition.IBuilder builder = BlockStateProperty.hasBlockStateProperties(block)
+                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(block.getAgeProperty(), 7));
+
+            this.add(block, applyExplosionDecay(block, LootTable.lootTable()
+                    .withPool(LootPool.lootPool().add(ItemLootEntry.lootTableItem(block)))
+                    .withPool(LootPool.lootPool().when(builder).add(ItemLootEntry.lootTableItem(block)
+                            .apply(ApplyBonus.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, probability, extra)))
+                    )
+            ));
         }
 
 
@@ -60,6 +77,8 @@ public class ModLootTableProvider extends LootTableProvider {
             blocks.add(ModBlocks.SILVER_BLOCK.get());
             blocks.add(ModBlocks.SILVER_ORE.get());
             blocks.add(ModBlocks.METAL_PRESS.get());
+            blocks.add(ModBlocks.OBSIDIAN_FRAME.get());
+            blocks.add(ModBlocks.PEANUTS.get());
             return blocks;
         }
     }

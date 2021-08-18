@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "reasurecraft:block/peanuts_stage1"
+  }
+}

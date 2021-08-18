@@ -1,20 +1,16 @@
 package reasure.reasurecraft;
 
-import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.EventBus;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import reasure.reasurecraft.gui.screen.DisplayCaseScreen;
 import reasure.reasurecraft.init.ModBlocks;
 import reasure.reasurecraft.init.ModContainerTypes;
+import reasure.reasurecraft.init.ModTileEntityTypes;
 import reasure.reasurecraft.init.Registration;
-import reasure.reasurecraft.util.ModResourceLocation;
 import reasure.reasurecraft.world.OreGeneration;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -24,7 +20,7 @@ public class ReasureCraft {
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static ReasureCraft instance;
+    private static ReasureCraft instance;
 
     public ReasureCraft() {
         instance = this;
@@ -39,19 +35,20 @@ public class ReasureCraft {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    public static ModResourceLocation getId(String path) {
-        if (path.contains(":")) {
-            throw new IllegalArgumentException("path contains namespace");
-        }
-        return new ModResourceLocation(path);
+    @SuppressWarnings("unused")
+    public static ReasureCraft getInstance() {
+        return instance;
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        OreGeneration.registerOres(event);
+        event.enqueueWork(OreGeneration::registerOres);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        ModBlocks.setRenderType();
-        ModContainerTypes.registerScreens(event);
+        event.enqueueWork(() -> {
+            ModBlocks.setRenderType();
+            ModContainerTypes.registerScreens();
+            ModTileEntityTypes.registerRenderers();
+        });
     }
 }

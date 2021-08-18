@@ -1,9 +1,15 @@
 {
   "block.reasurecraft.display_case": "\uC804\uC2DC\uC7A5",
   "block.reasurecraft.metal_press": "\uAE08\uC18D \uC720\uC555\uAE30",
+  "block.reasurecraft.obsidian_frame": "\uD751\uC694\uC11D \uD504\uB808\uC784",
+  "block.reasurecraft.peanuts": "Peanuts",
   "block.reasurecraft.silver_block": "\uC740 \uBE14\uB85D",
   "block.reasurecraft.silver_ore": "\uC740\uAD11\uC11D",
+  "container.reasurecraft.display_case": "\uC804\uC2DC\uC7A5",
   "container.reasurecraft.metal_press": "\uAE08\uC18D \uC720\uC555\uAE30",
+  "item.reasurecraft.blaze_and_steel": "\uBE14\uB808\uC774\uC988 \uB77C\uC774\uD130",
+  "item.reasurecraft.blaze_ingot": "\uBE14\uB808\uC774\uC988 \uC8FC\uAD34",
+  "item.reasurecraft.peanut": "\uB545\uCF69",
   "item.reasurecraft.poison_apple": "\uB3C5\uC0AC\uACFC",
   "item.reasurecraft.silver_axe": "\uC740 \uB3C4\uB07C",
   "item.reasurecraft.silver_boots": "\uC740 \uBD80\uCE20",
@@ -18,5 +24,9 @@
   "item.reasurecraft.silver_pickaxe": "\uC740 \uACE1\uAD2D\uC774",
   "item.reasurecraft.silver_shovel": "\uC740 \uC0BD",
   "item.reasurecraft.silver_sword": "\uC740 \uAC80",
-  "itemGroup.reasurecraft": "\uB798\uC838 \uD06C\uB798\uD504\uD2B8"
+  "item.reasurecraft.special_coal": "\uD2B9\uBCC4\uD55C \uC11D\uD0C4",
+  "itemGroup.reasurecraft": "\uB798\uC838 \uD06C\uB798\uD504\uD2B8",
+  "tooltip.reasurecraft.blaze_and_steel": "\uBE14\uB7ED\uC5D0 \uC0AC\uC6A9: \uBE14\uB7ED\uC5D0 \uBD88\uC744 \uBD99\uC784.\n\uD5C8\uACF5\uC5D0 \uC0AC\uC6A9: \uB098\uC5D0\uAC8C \uBD88\uC744 \uBD99\uC784.\n\uBAB9\uC5D0\uAC8C \uC0AC\uC6A9: \uBAB9\uC5D0\uAC8C \uBD88\uC744 \uBD99\uC784.",
+  "tooltip.reasurecraft.more_information": "%1$s%2$s%3$s\uB97C \uB20C\uB7EC \uB354 \uB9CE\uC740 \uC815\uBCF4 \uD655\uC778",
+  "tooltip.reasurecraft.special_coal": "\uBB34\uD55C\uD55C \uC11D\uD0C4\n\uD0C0\uB294 \uC2DC\uAC04\uC740 \uACE0\uC791 1\uD2F1 \uBFD0\uC774\uC9C0\uB9CC, \uC5F0\uB8CC\uB85C \uC0AC\uC6A9\uB418\uACE0 \uB09C \uD6C4\uC5D0 \uC0AC\uB77C\uC9C0\uC9C0 \uC54A\uC74C."
 }
