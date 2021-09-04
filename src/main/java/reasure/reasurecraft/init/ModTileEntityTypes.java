@@ -21,6 +21,9 @@ public class ModTileEntityTypes {
 
     public static final RegistryObject<TileEntityType<DisplayCaseTileEntity>> DISPLAY_CASE = register("display_case", DisplayCaseTileEntity::new, ModBlocks.DISPLAY_CASE);
 
+    private ModTileEntityTypes() {
+    }
+
     static void register() {
     }
 

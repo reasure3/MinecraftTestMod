@@ -9,8 +9,10 @@ import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.init.ModItems;
 import reasure.reasurecraft.init.ModTags;
 
+import javax.annotation.Nullable;
+
 public class ModItemTagsProvider extends ItemTagsProvider {
-    public ModItemTagsProvider(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
+    public ModItemTagsProvider(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, @Nullable ExistingFileHelper existingFileHelper) {
         super(dataGenerator, blockTagProvider, ReasureCraft.MOD_ID, existingFileHelper);
     }
 

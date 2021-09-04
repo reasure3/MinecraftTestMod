@@ -1,6 +1,7 @@
 package reasure.reasurecraft.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -19,6 +20,7 @@ public class Registration {
     public static final DeferredRegister<Item> ITEMS = create(ForgeRegistries.ITEMS);
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = create(ForgeRegistries.RECIPE_SERIALIZERS);
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = create(ForgeRegistries.TILE_ENTITIES);
+    public static final DeferredRegister<Fluid> FLUIDS = create(ForgeRegistries.FLUIDS);
 
     public static void register() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -27,10 +29,12 @@ public class Registration {
         ITEMS.register(modEventBus);
         RECIPE_SERIALIZERS.register(modEventBus);
         TILE_ENTITIES.register(modEventBus);
+        FLUIDS.register(modEventBus);
 
         ModBlocks.register();
         ModContainerTypes.register();
         ModItems.register();
+        ModFluids.register();
         ModRecipes.register();
         ModTileEntityTypes.register();
     }

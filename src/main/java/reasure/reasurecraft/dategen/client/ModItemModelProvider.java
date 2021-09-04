@@ -1,11 +1,17 @@
 package reasure.reasurecraft.dategen.client;
 
+import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import reasure.reasurecraft.ReasureCraft;
+import reasure.reasurecraft.init.ModBlocks;
+import reasure.reasurecraft.init.ModItems;
 import reasure.reasurecraft.util.Metals;
+
+import java.util.Objects;
 
 public class ModItemModelProvider extends ItemModelProvider {
     ModelFile itemGenerated = getExistingFile(mcLoc("item/generated")); //default item
@@ -19,20 +25,36 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         metals(Metals.METALS_SILVER);
 
-        withExistingParent("metal_press", modLoc("block/metal_press"));
-        withExistingParent("quarry", modLoc("block/quarry"));
-        withExistingParent("display_case", modLoc("block/display_case"));
-        withExistingParent("obsidian_frame", modLoc("block/obsidian_frame"));
+        withExistingParent(ModBlocks.METAL_PRESS.get());
+        withExistingParent(ModBlocks.QUARRY.get());
+        withExistingParent(ModBlocks.DISPLAY_CASE.get());
+        withExistingParent(ModBlocks.OBSIDIAN_FRAME.get());
+        withExistingParent(ModBlocks.LIGHTER_BLOCK.get());
+        withExistingParent(ModBlocks.FAUCET_BLOCK.get());
 
-        builder(itemGenerated, "poison_apple");
-        builder(itemGenerated, "special_coal");
-        builder(itemGenerated, "blaze_ingot");
-        builder(itemGenerated, "blaze_and_steel");
-        builder(itemGenerated, "peanut");
+        builder(itemGenerated, ModItems.POISON_APPLE.get());
+        builder(itemGenerated, ModItems.SPECIAL_COAL.get());
+        builder(itemGenerated, ModItems.BLAZE_INGOT.get());
+        builder(itemGenerated, ModItems.BLAZE_AND_STEEL.get());
+        builder(itemGenerated, ModItems.PEANUT.get());
+        builder(itemGenerated, ModItems.RUBBER_BUCKET.get());
+        builder(itemGenerated, ModItems.OBSIDIAN_STICK.get());
+        builder(itemGenerated, ModItems.ENDER_STICK.get());
+        builder(itemHandheld, ModItems.TELEPORT_STAFF.get());
+        builder(itemGenerated, ModItems.TORCH_PLACER.get());
+    }
+
+    private void builder(ModelFile model, Item item) {
+        builder(model, name(item));
     }
 
     private void builder(ModelFile model, String name) {
         getBuilder(name).parent(model).texture("layer0", "item/" + name);
+    }
+
+    private void withExistingParent(Block block) {
+        String name = name(block);
+        withExistingParent(name, modLoc("block/" + name));
     }
 
     private void metals(Metals metal) {
@@ -50,9 +72,17 @@ public class ModItemModelProvider extends ItemModelProvider {
         if (metal.chestplate != null) builder(itemHandheld, name + "_chestplate");
         if (metal.leggings != null) builder(itemHandheld, name + "_leggings");
         if (metal.boots != null) builder(itemHandheld, name + "_boots");
-        if (metal.horse_armor != null) builder(itemHandheld, name + "_horse_armor");
+        if (metal.horse_armor != null) builder(itemGenerated, name + "_horse_armor");
 
         if (metal.ore != null) withExistingParent(name + "_ore", modLoc("block/" + name + "_ore"));
         if (metal.block != null) withExistingParent(name + "_block", modLoc("block/" + name + "_block"));
+    }
+
+    private String name(Item item) {
+        return Objects.requireNonNull(item.getRegistryName()).getPath();
+    }
+
+    private String name(Block block) {
+        return Objects.requireNonNull(block.getRegistryName()).getPath();
     }
 }

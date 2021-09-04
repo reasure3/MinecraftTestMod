@@ -19,6 +19,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import reasure.reasurecraft.ReasureCraft;
+import reasure.reasurecraft.config.OregenConfig;
 import reasure.reasurecraft.init.ModBlocks;
 
 import java.util.List;
@@ -28,17 +29,14 @@ import java.util.function.Supplier;
 public class OreGeneration {
     public static ConfiguredFeature<?, ?> CONFIGURED_SILVER_ORE;
     public static ConfiguredFeature<?, ?> CONFIGURED_SILVER_ORE_EXTRA;
-    public static ConfiguredFeature<?, ?> CONFIGURED_SILVER_ORE_END;
 
     public static RuleTest ENDSTONE = new BlockMatchRuleTest(Blocks.END_STONE);
 
     public static void registerOres() {
         CONFIGURED_SILVER_ORE = register("silver_ore", OreRange(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
-                ModBlocks.SILVER_ORE.get().defaultBlockState(), 9, 32, 4));
+                ModBlocks.SILVER_ORE.get().defaultBlockState(), OregenConfig.silver_ore_veinSize.get(), 32, OregenConfig.silver_ore_count.get()));
         CONFIGURED_SILVER_ORE_EXTRA = register("silver_ore_extra", OreTopSolid(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
-                ModBlocks.SILVER_ORE.get().defaultBlockState(), 9, 32, 32, 80, 24));
-        CONFIGURED_SILVER_ORE_END = register("silver_ore", OreRange(ENDSTONE,
-                ModBlocks.SILVER_ORE.get().defaultBlockState(), 9, 32, 4));
+                ModBlocks.SILVER_ORE.get().defaultBlockState(), OregenConfig.silver_ore_extra_veinSize.get(), 32, 32, 80, OregenConfig.silver_ore_extra_count.get()));
     }
 
     private static ConfiguredFeature<?, ?> OreRange(RuleTest fillerType, BlockState state, int veinSize, int range, int frequency) {
@@ -59,9 +57,6 @@ public class OreGeneration {
             List<Supplier<ConfiguredFeature<?, ?>>> feature = event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES);
             feature.add(() -> CONFIGURED_SILVER_ORE);
             feature.add(() -> CONFIGURED_SILVER_ORE_EXTRA);
-        } else if (event.getCategory().equals(Biome.Category.THEEND)) {
-            List<Supplier<ConfiguredFeature<?, ?>>> feature = event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES);
-            feature.add(() -> CONFIGURED_SILVER_ORE_END);
         }
     }
 }

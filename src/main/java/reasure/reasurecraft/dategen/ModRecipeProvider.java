@@ -8,13 +8,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.tags.ITag;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.NBTIngredient;
+import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.init.ModItems;
+import reasure.reasurecraft.init.ModRecipes;
 import reasure.reasurecraft.util.Metals;
 import reasure.reasurecraft.util.ModResourceLocation;
 

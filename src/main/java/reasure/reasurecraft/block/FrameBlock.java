@@ -8,6 +8,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -20,7 +21,7 @@ import javax.annotation.Nullable;
 
 public class FrameBlock extends Block implements IWaterLoggable {
     private static final VoxelShape shape;
-    private static final BooleanProperty WATER_LOGGED = ModBlockProperty.WATER_LOGGED;
+    private static final BooleanProperty WATER_LOGGED = BlockStateProperties.WATERLOGGED;
 
     static {
         VoxelShape base = Block.box(0, 0, 0, 16, 1, 16);

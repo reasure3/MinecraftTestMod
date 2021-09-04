@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "reasurecraft:block/faucet"
+    },
+    "facing=south": {
+      "model": "reasurecraft:block/faucet",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reasurecraft:block/faucet",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "reasurecraft:block/faucet",
+      "y": 90
+    }
+  }
+}

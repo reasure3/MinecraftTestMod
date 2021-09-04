@@ -1,24 +1,14 @@
 package reasure.reasurecraft.item;
 
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import reasure.reasurecraft.util.KeyboardHelper;
-import reasure.reasurecraft.util.TranslateHelper;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
-public class SpecialCoal extends Item {
+public class SpecialCoal extends TooltipItem {
     public SpecialCoal(Properties properties) {
         super(properties.rarity(Rarity.EPIC).stacksTo(1));
     }
@@ -26,21 +16,6 @@ public class SpecialCoal extends Item {
     @Override
     public boolean isFoil(ItemStack stack) {
         return true;
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        if (KeyboardHelper.isHoldingShift()) {
-            tooltip.add(new TranslationTextComponent(TranslateHelper.getTooltipPrefix(this)));
-        } else {
-            tooltip.add(new StringTextComponent(I18n.get(
-                    TranslateHelper.getTooltipPrefix("more_information"),
-                    TextFormatting.YELLOW,
-                    KeyboardHelper.getShiftText(KeyboardHelper.Side.BOTH_OR),
-                    TextFormatting.RESET))
-            );
-        }
-        super.appendHoverText(stack, world, tooltip, flag);
     }
 
     @Override

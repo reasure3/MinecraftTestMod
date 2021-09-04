@@ -54,6 +54,7 @@ public class ModLootTableProvider extends LootTableProvider {
             dropSelf(ModBlocks.SILVER_ORE.get());
             dropSelf(ModBlocks.METAL_PRESS.get());
             dropSelf(ModBlocks.OBSIDIAN_FRAME.get());
+            dropSelf(ModBlocks.DISPLAY_CASE.get());
             cropDrop(ModBlocks.PEANUTS.get(), 5, 0.5714286f);
         }
 
@@ -78,6 +79,7 @@ public class ModLootTableProvider extends LootTableProvider {
             blocks.add(ModBlocks.SILVER_ORE.get());
             blocks.add(ModBlocks.METAL_PRESS.get());
             blocks.add(ModBlocks.OBSIDIAN_FRAME.get());
+            blocks.add(ModBlocks.DISPLAY_CASE.get());
             blocks.add(ModBlocks.PEANUTS.get());
             return blocks;
         }

@@ -3,7 +3,6 @@ package reasure.reasurecraft.block.metalpress;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -12,6 +11,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -23,14 +23,14 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import reasure.reasurecraft.block.ModBlockProperty;
+import reasure.reasurecraft.block.ModBlockStateProperties;
 import reasure.reasurecraft.init.ModTileEntityTypes;
 
 import javax.annotation.Nullable;
 
 public class MetalPressBlock extends Block {
-    public static final DirectionProperty FACING = HorizontalBlock.FACING;
-    public static final BooleanProperty ON = ModBlockProperty.ON;
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final BooleanProperty ON = ModBlockStateProperties.ON;
 
     public MetalPressBlock(Properties properties) {
         super(properties);

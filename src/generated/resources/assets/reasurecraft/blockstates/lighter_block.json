@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "on=false,redstone_reaction=false": {
+      "model": "reasurecraft:block/lighter_block"
+    },
+    "on=true,redstone_reaction=false": {
+      "model": "reasurecraft:block/lighter_block"
+    },
+    "on=false,redstone_reaction=true": {
+      "model": "reasurecraft:block/lighter_block_off"
+    },
+    "on=true,redstone_reaction=true": {
+      "model": "reasurecraft:block/lighter_block_on"
+    }
+  }
+}

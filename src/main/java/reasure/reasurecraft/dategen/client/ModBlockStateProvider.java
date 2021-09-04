@@ -5,14 +5,12 @@ import net.minecraft.block.CropsBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelBuilder;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.block.FrameBlock;
-import reasure.reasurecraft.block.ModBlockProperty;
+import reasure.reasurecraft.block.LighterBlock;
+import reasure.reasurecraft.block.ModBlockStateProperties;
 import reasure.reasurecraft.block.ModOreBlock;
 import reasure.reasurecraft.init.ModBlocks;
 
@@ -28,6 +26,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.SILVER_BLOCK.get());
         simpleBlock(ModBlocks.QUARRY.get());
 
+        getVariantBuilder(ModBlocks.RUBBER.get()).partialState()
+                .setModels(new ConfiguredModel(models().getBuilder("rubber").texture("particle", "reasurecraft:block/rubber_still")));
+
         models().getBuilder("ore").parent(models().getExistingFile(mcLoc("block/block")))
                 .element().cube("#stone").end()
                 .element().cube("#ore").end();
@@ -41,6 +42,23 @@ public class ModBlockStateProvider extends BlockStateProvider {
         FrameBlock(ModBlocks.OBSIDIAN_FRAME.get());
 
         CropBlock(ModBlocks.PEANUTS.get(), 4, new int[]{0, 0, 1, 1, 2, 2, 2, 3});
+
+        lighterBlock(ModBlocks.LIGHTER_BLOCK.get());
+
+        horizontalBlock(ModBlocks.FAUCET_BLOCK.get(), models().getExistingFile(ModBlocks.FAUCET_BLOCK.getId()));
+    }
+
+    private void lighterBlock(LighterBlock block) {
+        ModelFile default_model = cubeAll(block);
+        ModelFile on = models().cubeAll(name(block) + "_on", modLoc("block/" + name(block) + "_on"));
+        ModelFile off = models().cubeAll(name(block) + "_off", modLoc("block/" + name(block) + "_off"));
+
+        getVariantBuilder(block).forAllStates(state -> {
+            if (!state.getValue(ModBlockStateProperties.REDSTONE_REACTION)) {
+                return ConfiguredModel.builder().modelFile(default_model).build();
+            }
+            return ConfiguredModel.builder().modelFile(state.getValue(ModBlockStateProperties.ON) ? on : off).build();
+        });
     }
 
     private void oreBlock(ModOreBlock block, String stone) {
@@ -68,7 +86,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         ModelBuilder<BlockModelBuilder> off = models().orientableWithBottom(block_name, side, front_off, bottom, top);
 
         getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
-                .modelFile(state.getValue(ModBlockProperty.ON) ? on : off)
+                .modelFile(state.getValue(ModBlockStateProperties.ON) ? on : off)
                 .rotationY(((int)state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360)
                 .build());
     }

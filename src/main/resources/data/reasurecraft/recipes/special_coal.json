@@ -1,0 +1,11 @@
+{
+  "type": "reasurecraft:tossing",
+  "block": "minecraft:diamond_block",
+  "ingredient": {
+    "tag": "minecraft:coals"
+  },
+  "result": {
+    "item": "reasurecraft:special_coal",
+    "count": 1
+  }
+}

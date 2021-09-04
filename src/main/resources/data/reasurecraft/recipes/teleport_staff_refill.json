@@ -1,0 +1,10 @@
+{
+  "type": "reasurecraft:refill",
+  "refillItem": {
+    "item": "reasurecraft:teleport_staff",
+    "count": 1
+  },
+  "ingredient": {
+    "tag": "forge:ender_pearls"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "reasurecraft:tossing",
+  "block": "minecraft:stone",
+  "ingredient": {
+    "item": "minecraft:diamond"
+  },
+  "result": {
+    "item": "minecraft:diamond_ore",
+    "count": 1
+  }
+}

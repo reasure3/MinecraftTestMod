@@ -8,8 +8,10 @@ import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.init.ModBlocks;
 import reasure.reasurecraft.init.ModTags;
 
+import javax.annotation.Nullable;
+
 public class ModBlockTagsProvider extends BlockTagsProvider {
-    public ModBlockTagsProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
+    public ModBlockTagsProvider(DataGenerator generatorIn, @Nullable ExistingFileHelper existingFileHelper) {
         super(generatorIn, ReasureCraft.MOD_ID, existingFileHelper);
     }
 

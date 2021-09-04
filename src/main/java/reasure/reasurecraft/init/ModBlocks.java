@@ -2,18 +2,18 @@ package reasure.reasurecraft.init;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
-import reasure.reasurecraft.block.FrameBlock;
-import reasure.reasurecraft.block.ModOreBlock;
-import reasure.reasurecraft.block.PeanutBlock;
-import reasure.reasurecraft.block.QuarryBlock;
+import reasure.reasurecraft.block.*;
 import reasure.reasurecraft.block.displaycase.DisplayCaseBlock;
 import reasure.reasurecraft.block.metalpress.MetalPressBlock;
 import reasure.reasurecraft.item.itemgroup.ModItemGroup;
@@ -22,9 +22,9 @@ import java.util.function.Supplier;
 
 public class ModBlocks {
 
-    public static final RegistryObject<ModOreBlock> SILVER_ORE = registerBlockItem("silver_ore", () -> getOre(2, "silver"));
+    public static final RegistryObject<ModOreBlock> SILVER_ORE = registerBlockItem("silver_ore", getOre(2));
 
-    public static final RegistryObject<Block> SILVER_BLOCK = registerBlockItem("silver_block", () -> getStorageBlock(2));
+    public static final RegistryObject<Block> SILVER_BLOCK = registerBlockItem("silver_block", getStorageBlock(2, MaterialColor.METAL, 5.0f, 6.0f));
 
     public static final RegistryObject<MetalPressBlock> METAL_PRESS = registerBlockItem("metal_press", () -> new MetalPressBlock(getMachineProperties(SoundType.ANVIL)));
 
@@ -38,15 +38,25 @@ public class ModBlocks {
 
     public static final RegistryObject<PeanutBlock> PEANUTS = register("peanuts", () -> new PeanutBlock(getCropProperties()));
 
-    private static ModOreBlock getOre(int harvestLevel, String ore) {
-        return new ModOreBlock(AbstractBlock.Properties.of(Material.STONE)
-                .strength(4, 10)  // hardness and resistance
+    public static final RegistryObject<FlowingFluidBlock> RUBBER = register("rubber",
+            () -> new RubberFlowingBlock(ModFluids.RUBBER, AbstractBlock.Properties.of(ModMaterial.RUBBER).noCollission().randomTicks().strength(100.0F).noDrops()));
+
+    public static final RegistryObject<LighterBlock> LIGHTER_BLOCK = registerBlockItem("lighter_block", () -> new LighterBlock(AbstractBlock.Properties.of(Material.STONE, MaterialColor.FIRE)));
+
+    public static final RegistryObject<FaucetBlock> FAUCET_BLOCK = registerBlockItem("faucet", () -> new FaucetBlock(AbstractBlock.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+
+    private ModBlocks() {
+    }
+
+    private static Supplier<ModOreBlock> getOre(int harvestLevel) {
+        return () -> new ModOreBlock(AbstractBlock.Properties.of(Material.STONE)
+                .strength(3.0f, 3.0f)  // hardness and resistance
                 .harvestLevel(harvestLevel));
     }
 
-    private static Block getStorageBlock(int harvestLevel) {
-        return new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.METAL)
-                .strength(3.0f, 6.0f)  // hardness and resistance
+    private static Supplier<Block> getStorageBlock(int harvestLevel, MaterialColor color, float hardness, float resistance) {
+        return () -> new Block(AbstractBlock.Properties.of(Material.METAL, color)
+                .strength(hardness, resistance)
                 .requiresCorrectToolForDrops()
                 .harvestTool(ToolType.PICKAXE)
                 .harvestLevel(harvestLevel)
@@ -86,22 +96,11 @@ public class ModBlocks {
         return ret;
     }
 
-    private static <T extends Block> RegistryObject<T> registerCropItemNoSeed(String block_name, Supplier<T> block, Food food, String item_name) {
-        RegistryObject<T> ret = register(block_name, block);
-        Registration.ITEMS.register(item_name, () -> new BlockNamedItem(ret.get(), new Item.Properties().food(food).tab(ModItemGroup.reasurecraft)));
-        return ret;
-    }
-
-    @SuppressWarnings("CommentedOutCode")
     public static void setRenderType() {
+        RenderTypeLookup.setRenderLayer(ModBlocks.RUBBER.get(), RenderType.solid());
         RenderTypeLookup.setRenderLayer(ModBlocks.SILVER_ORE.get(), RenderType.cutoutMipped());
         RenderTypeLookup.setRenderLayer(ModBlocks.DISPLAY_CASE.get(), RenderType.cutoutMipped());
         RenderTypeLookup.setRenderLayer(ModBlocks.PEANUTS.get(), RenderType.cutout());
-        /*Registration.BLOCKS.getEntries().stream()
-                .map(RegistryObject::get)
-                .forEach(
-                        block -> RenderTypeLookup.setRenderLayer(block, RenderType.cutoutMipped())
-                );*/
     }
 
     static void register() {
