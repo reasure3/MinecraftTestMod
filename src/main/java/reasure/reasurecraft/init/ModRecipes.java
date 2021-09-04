@@ -3,7 +3,6 @@ package reasure.reasurecraft.init;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.fml.RegistryObject;
 import reasure.reasurecraft.ReasureCraft;
@@ -46,6 +45,7 @@ public class ModRecipes {
         public static final RegistryObject<IRecipeSerializer<PressingRecipe>> PRESSING = register("pressing", PressingRecipe.Serializer::new);
         public static final RegistryObject<IRecipeSerializer<TossingRecipe>> TOSSING = register("tossing", TossingRecipe.Serializer::new);
         public static final RegistryObject<IRecipeSerializer<RefillItemRecipe>> REFILL = register("refill", RefillItemRecipe.Serializer::new);
+
         private Serializers() {
         }
 

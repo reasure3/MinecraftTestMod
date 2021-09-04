@@ -8,7 +8,6 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.Tags;
 import reasure.reasurecraft.ReasureCraft;
 
 public class ModTags {
