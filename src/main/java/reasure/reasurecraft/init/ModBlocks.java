@@ -13,6 +13,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.block.*;
 import reasure.reasurecraft.block.displaycase.DisplayCaseBlock;
 import reasure.reasurecraft.block.metalpress.MetalPressBlock;
@@ -21,6 +24,7 @@ import reasure.reasurecraft.item.itemgroup.ModItemGroup;
 import java.util.function.Supplier;
 
 public class ModBlocks {
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ReasureCraft.MOD_ID);
 
     public static final RegistryObject<ModOreBlock> SILVER_ORE = registerBlockItem("silver_ore", getOre(2));
 
@@ -82,7 +86,7 @@ public class ModBlocks {
     }
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block) {
-        return Registration.BLOCKS.register(name, block);
+        return BLOCKS.register(name, block);
     }
 
     private static <T extends Block> RegistryObject<T> registerBlockItem(String name, Supplier<T> block) {
@@ -92,17 +96,14 @@ public class ModBlocks {
     @SuppressWarnings("SameParameterValue")
     private static <T extends Block> RegistryObject<T> registerBlockItem(String name, Supplier<T> block, ItemGroup group) {
         RegistryObject<T> ret = register(name, block);
-        Registration.ITEMS.register(name, () -> new BlockItem(ret.get(), new Item.Properties().tab(group)));
+        ModItems.ITEMS.register(name, () -> new BlockItem(ret.get(), new Item.Properties().tab(group)));
         return ret;
     }
 
     public static void setRenderType() {
-        RenderTypeLookup.setRenderLayer(ModBlocks.RUBBER.get(), RenderType.solid());
-        RenderTypeLookup.setRenderLayer(ModBlocks.SILVER_ORE.get(), RenderType.cutoutMipped());
-        RenderTypeLookup.setRenderLayer(ModBlocks.DISPLAY_CASE.get(), RenderType.cutoutMipped());
-        RenderTypeLookup.setRenderLayer(ModBlocks.PEANUTS.get(), RenderType.cutout());
-    }
-
-    static void register() {
+        RenderTypeLookup.setRenderLayer(RUBBER.get(), RenderType.solid());
+        RenderTypeLookup.setRenderLayer(SILVER_ORE.get(), RenderType.cutoutMipped());
+        RenderTypeLookup.setRenderLayer(DISPLAY_CASE.get(), RenderType.cutoutMipped());
+        RenderTypeLookup.setRenderLayer(PEANUTS.get(), RenderType.cutout());
     }
 }

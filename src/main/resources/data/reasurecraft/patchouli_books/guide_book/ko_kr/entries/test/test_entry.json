@@ -1,0 +1,11 @@
+{
+  "name": "Test Entry",
+  "icon": "reasurecraft:silver_axe",
+  "category": "reasurecraft:test_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "이것은 테스트 목록이지만, 책에 보일것입니다!"
+    }
+  ]
+}

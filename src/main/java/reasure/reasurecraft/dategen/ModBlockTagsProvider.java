@@ -8,6 +8,7 @@ import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.init.ModBlocks;
 import reasure.reasurecraft.init.ModTags;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ModBlockTagsProvider extends BlockTagsProvider {
@@ -22,5 +23,11 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
         tag(ModTags.Blocks.STORAGE_BLOCKS_SILVER).add(ModBlocks.SILVER_BLOCK.get());
         tag(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.STORAGE_BLOCKS_SILVER);
+    }
+
+    @Nonnull
+    @Override
+    public String getName() {
+        return "Block Tag Provider: " + ReasureCraft.MOD_ID;
     }
 }

@@ -25,11 +25,11 @@ public class TeleportStaff extends TooltipItem {
 
         Vector3d eyePosition = player.getEyePosition(1.0F);
 
-        float f1 = MathHelper.sin(-yRot * ((float)Math.PI / 180F) - (float)Math.PI);
-        float f2 = MathHelper.cos(-yRot * ((float)Math.PI / 180F) - (float)Math.PI);
-        float f3 = -MathHelper.cos(-xRot * ((float)Math.PI / 180F));
+        float f1 = MathHelper.sin((float)(-yRot * (Math.PI / 180F) - Math.PI));
+        float f2 = MathHelper.cos((float)(-yRot * (Math.PI / 180F) - Math.PI));
+        float f3 = -MathHelper.cos((float)(-xRot * (Math.PI / 180F)));
 
-        double destinationY = MathHelper.sin(-xRot * ((float)Math.PI / 180F)) * range;
+        double destinationY = MathHelper.sin((float)(-xRot * (Math.PI / 180F))) * range;
 
         Vector3d destinationPosition = eyePosition.add(f1 * f3 * range, destinationY, f2 * f3 * range);
 
@@ -46,7 +46,9 @@ public class TeleportStaff extends TooltipItem {
                 player.getCooldowns().addCooldown(this, cooldown);
             }
 
-            player.moveTo(rayTrace(world, player).getLocation());
+            Vector3d loc = rayTrace(world, player).getLocation();
+
+            player.teleportTo(loc.x, loc.y, loc.z);
 
             player.fallDistance = 0;
 

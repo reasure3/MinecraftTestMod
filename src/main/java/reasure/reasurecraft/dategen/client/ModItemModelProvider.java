@@ -11,6 +11,7 @@ import reasure.reasurecraft.init.ModBlocks;
 import reasure.reasurecraft.init.ModItems;
 import reasure.reasurecraft.util.Metals;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class ModItemModelProvider extends ItemModelProvider {
@@ -84,5 +85,11 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     private String name(Block block) {
         return Objects.requireNonNull(block.getRegistryName()).getPath();
+    }
+
+    @Nonnull
+    @Override
+    public String getName() {
+        return "Item Model Provider: " + ReasureCraft.MOD_ID;
     }
 }

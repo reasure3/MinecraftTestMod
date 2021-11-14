@@ -54,12 +54,12 @@ public class TossingRecipe implements IRecipe<IInventory> {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return ModRecipes.Serializers.TOSSING.get();
+        return ModRecipes.TOSSING_SERIALIZER.get();
     }
 
     @Override
     public IRecipeType<?> getType() {
-        return ModRecipes.Types.TOSSING;
+        return ModRecipes.TOSSING_TYPE;
     }
 
     @Override

@@ -3,13 +3,17 @@ package reasure.reasurecraft.dategen;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.Potion;
 import net.minecraftforge.common.data.LanguageProvider;
 import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.init.ModBlocks;
+import reasure.reasurecraft.init.ModEffects;
 import reasure.reasurecraft.init.ModItems;
 import reasure.reasurecraft.item.itemgroup.ModItemGroup;
 import reasure.reasurecraft.util.TranslateHelper;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class ModLanguageProvider extends LanguageProvider {
@@ -31,6 +35,7 @@ public class ModLanguageProvider extends LanguageProvider {
                 helper.add(ModBlocks.PEANUTS.get(), "Peanuts");
                 helper.add(ModBlocks.RUBBER.get(), "Rubber");
                 helper.add(ModBlocks.LIGHTER_BLOCK.get(), "Lighter Block");
+                helper.add(ModBlocks.FAUCET_BLOCK.get(), "Faucet");
                 break;
             case "ko_kr":
                 helper.add(ModBlocks.SILVER_ORE.get(), "은광석");
@@ -41,6 +46,7 @@ public class ModLanguageProvider extends LanguageProvider {
                 helper.add(ModBlocks.PEANUTS.get(), "땅콩");
                 helper.add(ModBlocks.RUBBER.get(), "고무");
                 helper.add(ModBlocks.LIGHTER_BLOCK.get(), "라이터 블럭");
+                helper.add(ModBlocks.FAUCET_BLOCK.get(), "수돗꼭지");
                 break;
         }
     }
@@ -71,6 +77,7 @@ public class ModLanguageProvider extends LanguageProvider {
                 helper.add(ModItems.ENDER_STICK.get(), "Ender Stick");
                 helper.add(ModItems.TELEPORT_STAFF.get(), "Teleport Staff");
                 helper.add(ModItems.TORCH_PLACER.get(), "Torch Placer");
+                helper.add(ModItems.TORCH_BOW.get(), "Torch Bow");
                 break;
             case "ko_kr":
                 helper.add(ModItems.SILVER_INGOT.get(), "은괴");
@@ -95,7 +102,8 @@ public class ModLanguageProvider extends LanguageProvider {
                 helper.add(ModItems.OBSIDIAN_STICK.get(), "흑요석 막대기");
                 helper.add(ModItems.ENDER_STICK.get(), "엔드 막대기");
                 helper.add(ModItems.TELEPORT_STAFF.get(), "순간이동 지팡이");
-                helper.add(ModItems.TORCH_PLACER.get(), "토치 자동 설치 아이템");
+                helper.add(ModItems.TORCH_PLACER.get(), "횃불 자동 설치 아이템");
+                helper.add(ModItems.TORCH_BOW.get(), "횃불 활");
                 break;
         }
     }
@@ -119,6 +127,22 @@ public class ModLanguageProvider extends LanguageProvider {
             case "ko_kr":
                 helper.addContainer(ModBlocks.METAL_PRESS.get(), "금속 유압기");
                 helper.addContainer(ModBlocks.DISPLAY_CASE.get(), "전시장");
+        }
+    }
+
+    private void effects(PrefixHelper helper, String locale) {
+        switch (locale) {
+            case "en_us":
+                helper.addEffect(ModEffects.EXPLOSIVE_EFFECT.get(), "Explosive");
+                helper.addPotion(ModEffects.EXPLOSIVE_POTION.get(), "Potion of Explosion", "Splash Potion of Explosion", "Lingering Potion of Explosion");
+                helper.addPotion(ModEffects.LONG_EXPLOSIVE_POTION.get(), "Potion of Explosion", "Splash Potion of Explosion", "Lingering Potion of Explosion");
+                helper.addPotion(ModEffects.STRONG_EXPLOSIVE_POTION.get(), "Potion of Explosion", "Splash Potion of Explosion", "Lingering Potion of Explosion");
+                break;
+            case "ko_kr":
+                helper.addEffect(ModEffects.EXPLOSIVE_EFFECT.get(), "폭발");
+                helper.addPotion(ModEffects.EXPLOSIVE_POTION.get(), "폭발의 물약", "투척용 폭발의 물약", "잔류하는 폭발의 물약");
+                helper.addPotion(ModEffects.LONG_EXPLOSIVE_POTION.get(), "폭발의 물약", "투척용 폭발의 물약", "잔류하는 폭발의 물약");
+                helper.addPotion(ModEffects.STRONG_EXPLOSIVE_POTION.get(), "폭발의 물약", "투척용 폭발의 물약", "잔류하는 폭발의 물약");
         }
     }
 
@@ -154,13 +178,25 @@ public class ModLanguageProvider extends LanguageProvider {
         helper.addTooltip("potion.with_percent", "%s [%s%%]");
     }
 
-    private void jeiCategories(PrefixHelper helper, String locale) {
+    private void plugins(PrefixHelper helper, String locale) {
         switch (locale) {
             case "en_us":
+                //jei
                 helper.addCategory("tossing", "Item Tossing Recipe");
+
+                //patchouli books
+                helper.prefix = "";
+                helper.add("item." + ReasureCraft.MOD_ID + ".guide_book", "Guide for Reasure Craft");
+                helper.add("lore." + ReasureCraft.MOD_ID + ".guide_book", "This guide book help for you playing Reasure Craft.");
                 break;
             case "ko_kr":
+                //jei
                 helper.addCategory("tossing", "아이템 던지기");
+
+                //patchouli books
+                helper.prefix = "";
+                helper.add("item." + ReasureCraft.MOD_ID + ".guide_book", "래져 크래프트 가이드북");
+                helper.add("lore." + ReasureCraft.MOD_ID + ".guide_book", "이 책은 래져 크래프트를 즐기는데 도움을 줍니다.");
         }
     }
 
@@ -172,12 +208,19 @@ public class ModLanguageProvider extends LanguageProvider {
         itemGroups(helper, locale);
         containers(helper, locale);
         tooltips(helper, locale);
-        jeiCategories(helper, locale);
+        effects(helper, locale);
+        plugins(helper, locale);
     }
 
     @SuppressWarnings("unused")
     public String getLocale() {
         return locale;
+    }
+
+    @Nonnull
+    @Override
+    public String getName() {
+        return "Language Provider: " + ReasureCraft.MOD_ID;
     }
 
     private static class PrefixHelper {
@@ -223,8 +266,30 @@ public class ModLanguageProvider extends LanguageProvider {
         }
 
         public void addCategory(String key, String name) {
-            setPrefix("categoty." + ReasureCraft.MOD_ID);
+            setPrefix("category." + ReasureCraft.MOD_ID);
             provider.add(prefix + key, name);
+        }
+
+        public void addEffect(Effect key, String name) {
+            provider.add(key, name);
+        }
+
+        public void addPotion(Potion key, String... names) {
+            if (names.length == 0 || names.length > 3) {
+                throw new IndexOutOfBoundsException("names size must be 1 ~ 3!");
+            }
+
+            Objects.requireNonNull(key.getRegistryName());
+            setPrefix("item.minecraft.potion.effect");
+            provider.add(prefix + key.getRegistryName().getPath(), names[0]);
+            if (names.length > 1 && !names[1].equals("")) {
+                setPrefix("item.minecraft.splash_potion.effect");
+                provider.add(prefix + key.getRegistryName().getPath(), names[1]);
+            }
+            if (names.length > 2 && !names[2].equals("")) {
+                setPrefix("item.minecraft.lingering_potion.effect");
+                provider.add(prefix + key.getRegistryName().getPath(), names[2]);
+            }
         }
     }
 }

@@ -14,10 +14,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.NBTIngredient;
+import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.init.ModItems;
 import reasure.reasurecraft.util.Metals;
 import reasure.reasurecraft.util.ModResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -307,5 +309,11 @@ public class ModRecipeProvider extends RecipeProvider {
             }
             return json;
         }
+    }
+
+    @Nonnull
+    @Override
+    public String getName() {
+        return "Recipe Provider: " + ReasureCraft.MOD_ID;
     }
 }

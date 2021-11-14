@@ -14,8 +14,10 @@ import net.minecraft.loot.conditions.BlockStateProperty;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.loot.functions.ApplyBonus;
 import net.minecraft.util.ResourceLocation;
+import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.init.ModBlocks;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,11 +28,6 @@ import java.util.function.Supplier;
 public class ModLootTableProvider extends LootTableProvider {
     public ModLootTableProvider(DataGenerator generatorIn) {
         super(generatorIn);
-    }
-
-    @Override
-    public String getName() {
-        return "More Machine - Loot Tables";
     }
 
     @Override
@@ -71,7 +68,6 @@ public class ModLootTableProvider extends LootTableProvider {
             ));
         }
 
-
         @Override
         protected Iterable<Block> getKnownBlocks() {
             ArrayList<Block> blocks = new ArrayList<>();
@@ -83,5 +79,11 @@ public class ModLootTableProvider extends LootTableProvider {
             blocks.add(ModBlocks.PEANUTS.get());
             return blocks;
         }
+    }
+
+    @Nonnull
+    @Override
+    public String getName() {
+        return "Loot Table Provider: " + ReasureCraft.MOD_ID;
     }
 }

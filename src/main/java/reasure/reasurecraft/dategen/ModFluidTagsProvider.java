@@ -8,6 +8,7 @@ import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.init.ModFluids;
 import reasure.reasurecraft.init.ModTags;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ModFluidTagsProvider extends FluidTagsProvider {
@@ -19,5 +20,11 @@ public class ModFluidTagsProvider extends FluidTagsProvider {
     protected void addTags() {
         tag(ModTags.Fluids.RUBBER).add(ModFluids.RUBBER.get(), ModFluids.RUBBER_FLOWING.get());
         tag(FluidTags.WATER).addTag(ModTags.Fluids.RUBBER);
+    }
+
+    @Nonnull
+    @Override
+    public String getName() {
+        return "Fluid Tag Provide: r" + ReasureCraft.MOD_ID;
     }
 }

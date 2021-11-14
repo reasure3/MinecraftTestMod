@@ -87,7 +87,7 @@ public class MetalPressTileEntity extends LockableTileEntity implements ISidedIn
         if (this.level == null || getItem(0).isEmpty()) {
             return null;
         }
-        return this.level.getRecipeManager().getRecipeFor(ModRecipes.Types.PRESSING, this, this.level).orElse(null);
+        return this.level.getRecipeManager().getRecipeFor(ModRecipes.PRESSING_TYPE, this, this.level).orElse(null);
     }
 
     private ItemStack getWorkOutput(@Nullable PressingRecipe recipe) {

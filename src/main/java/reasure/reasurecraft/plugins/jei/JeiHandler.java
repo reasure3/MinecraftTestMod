@@ -38,8 +38,8 @@ public class JeiHandler implements IModPlugin {
         RecipeManager manager;
         if (Minecraft.getInstance().level != null) {
             manager = Minecraft.getInstance().level.getRecipeManager();
-            registration.addRecipes(getRecipes(manager, ModRecipes.Types.TOSSING), TossingRecipeCategory.ID);
-            registration.addRecipes(getRecipes(manager, ModRecipes.Serializers.REFILL.get()), RefillRecipeCategory.ID);
+            registration.addRecipes(getRecipes(manager, ModRecipes.TOSSING_TYPE), TossingRecipeCategory.ID);
+            registration.addRecipes(getRecipes(manager, ModRecipes.REFILL_SERIALIZER.get()), RefillRecipeCategory.ID);
         }
     }
 

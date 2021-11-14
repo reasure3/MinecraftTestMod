@@ -9,6 +9,7 @@ import reasure.reasurecraft.ReasureCraft;
 import reasure.reasurecraft.init.ModItems;
 import reasure.reasurecraft.init.ModTags;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ModItemTagsProvider extends ItemTagsProvider {
@@ -31,5 +32,11 @@ public class ModItemTagsProvider extends ItemTagsProvider {
 
         tag(ModTags.Items.NUGGETS_SILVER).add(ModItems.SILVER_NUGGET.get());
         tag(Tags.Items.NUGGETS).addTag(ModTags.Items.NUGGETS_SILVER);
+    }
+
+    @Nonnull
+    @Override
+    public String getName() {
+        return "Item Tag Provider: " + ReasureCraft.MOD_ID;
     }
 }

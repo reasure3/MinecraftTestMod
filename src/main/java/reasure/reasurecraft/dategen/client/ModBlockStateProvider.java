@@ -14,6 +14,7 @@ import reasure.reasurecraft.block.ModBlockStateProperties;
 import reasure.reasurecraft.block.ModOreBlock;
 import reasure.reasurecraft.init.ModBlocks;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class ModBlockStateProvider extends BlockStateProvider {
@@ -119,5 +120,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private String name(Block block) {
         return Objects.requireNonNull(block.getRegistryName()).getPath();
+    }
+
+    @Nonnull
+    @Override
+    public String getName() {
+        return "Block State Provider: " + ReasureCraft.MOD_ID;
     }
 }

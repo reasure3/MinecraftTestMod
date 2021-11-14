@@ -198,7 +198,7 @@ public class RefillItemRecipe implements ICraftingRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return ModRecipes.Serializers.REFILL.get();
+        return ModRecipes.REFILL_SERIALIZER.get();
     }
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RefillItemRecipe> {

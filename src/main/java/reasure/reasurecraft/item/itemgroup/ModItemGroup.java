@@ -14,6 +14,7 @@ public abstract class ModItemGroup extends ItemGroup {
             return new ItemStack(ModItems.SILVER_PICKAXE.get());
         }
     };
+
     private final String label;
 
     public ModItemGroup(String label) {

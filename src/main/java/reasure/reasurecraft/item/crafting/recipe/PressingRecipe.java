@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 
 public class PressingRecipe extends SingleItemRecipe {
     public PressingRecipe(ResourceLocation recipeId, Ingredient ingredient, ItemStack result) {
-        super(ModRecipes.Types.PRESSING, ModRecipes.Serializers.PRESSING.get(), recipeId, "", ingredient, result); // "" : group
+        super(ModRecipes.PRESSING_TYPE, ModRecipes.PRESSING_SERIALIZER.get(), recipeId, "", ingredient, result); // "" : group
     }
 
     @Override

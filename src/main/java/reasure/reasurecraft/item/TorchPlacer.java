@@ -69,7 +69,7 @@ TorchPlacer extends TooltipItem {
             return ActionResult.sidedSuccess(item, world.isClientSide());
         }
 
-        return ActionResult.fail(item);
+        return ActionResult.pass(item);
     }
 
     @Override
@@ -124,6 +124,10 @@ TorchPlacer extends TooltipItem {
     }
 
     public ActionResultType useOn(ItemUseContext itemUseContext) {
+        if (!ItemConfig.torch_placer_install_directly.get()) {
+            return super.useOn(itemUseContext);
+        }
+
         PlayerEntity player = itemUseContext.getPlayer();
         if (player != null && !player.abilities.instabuild) {
             final List<NonNullList<ItemStack>> compartments = ImmutableList.of(player.inventory.items, player.inventory.offhand);

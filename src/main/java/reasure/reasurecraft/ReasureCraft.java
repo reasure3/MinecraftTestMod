@@ -1,6 +1,7 @@
 package reasure.reasurecraft;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -25,11 +26,21 @@ public class ReasureCraft {
     public ReasureCraft() {
         instance = this;
 
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
 
         // Register ModBlocks and ModItems
-        Registration.register();
+//        Registration.register();
+        ModItems.ITEMS.register(modEventBus);
+        ModBlocks.BLOCKS.register(modEventBus);
+        ModTileEntityTypes.TILE_ENTITIES.register(modEventBus);
+        ModContainerTypes.CONTAINERS.register(modEventBus);
+        ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
+        ModFluids.FLUIDS.register(modEventBus);
+        ModEffects.EFFECTS.register(modEventBus);
+        ModEffects.POTIONS.register(modEventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.common_config, "reasurecraft-common.toml");
 
@@ -50,8 +61,10 @@ public class ReasureCraft {
         event.enqueueWork(() -> {
             ModBlocks.setRenderType();
             ModFluids.setRenderType();
+            ModItems.registerModelProperties();
             ModContainerTypes.registerScreens();
             ModTileEntityTypes.registerRenderers();
+            ModEffects.addPotionRecipes();
         });
     }
 }

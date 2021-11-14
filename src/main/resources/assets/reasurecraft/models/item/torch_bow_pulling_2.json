@@ -1,0 +1,6 @@
+{
+  "parent": "reasurecraft:item/torch_bow",
+  "textures": {
+    "layer0": "reasurecraft:item/torch_bow_pulling_2"
+  }
+}
